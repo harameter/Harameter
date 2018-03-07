@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "595503027927",
+    "firebase_url": "https://harameter-506.firebaseio.com",
+    "project_id": "harameter-506",
+    "storage_bucket": "harameter-506.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595503027927:android:4f2b16dbefe57573",
+        "android_client_info": {
+          "package_name": "com.example.harameter.harameter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595503027927-v2q1qejbc13m12ul4avr6i3k2er3ev15.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.harameter.harameter",
+            "certificate_hash": "91da024ce99520f965cb07072b4f1fd4e8d0eece"
+          }
+        },
+        {
+          "client_id": "595503027927-o21qptrsd1iaj9n0qttkbfss62gcvvut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAStYV4ATfPq9PMvEqNHxbMKnynfJ-R8Eg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595503027927-o21qptrsd1iaj9n0qttkbfss62gcvvut.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
