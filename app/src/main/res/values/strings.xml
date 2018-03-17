@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Harameter</string>
     <string name="title_activity_bluetooth">BluetoothActivity</string>
+    <string name="title_activity_git_test">GitTestActivity</string>
 </resources>
