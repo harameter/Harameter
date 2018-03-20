@@ -87,11 +87,8 @@ public class BluetoothActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
         startButton = (Button) findViewById(R.id.buttonStart);
-        sendButton = (Button) findViewById(R.id.buttonSend);
-        clearButton = (Button) findViewById(R.id.buttonClear);
         stopButton = (Button) findViewById(R.id.buttonStop);
-        editText = (EditText) findViewById(R.id.editText);
-        textView = (TextView) findViewById(R.id.textView);
+        textView = (TextView) findViewById(R.id.btTextView);
         textView.setEnabled(true);
         setUiEnabled(false);
 
@@ -112,8 +109,6 @@ public class BluetoothActivity extends Activity {
     public void setUiEnabled(boolean bool)
     {
         startButton.setEnabled(!bool);
-        //startButton.setEnabled(bool);
-        sendButton.setEnabled(bool);
         stopButton.setEnabled(bool);
 
     }
@@ -151,6 +146,10 @@ public class BluetoothActivity extends Activity {
                     break;
                 }
             }
+        }
+
+        if(!found) {
+            Toast.makeText(getApplicationContext(), "Device not found", Toast.LENGTH_SHORT).show();
         }
         return found;
     }
@@ -231,33 +230,34 @@ public class BluetoothActivity extends Activity {
                                 {
                                     DecimalFormat format = new DecimalFormat("#.#");
                                     try {
-                                        long timePassed = System.nanoTime() - startTime;
-                                        if(timePassed > calibrateTime) {
-                                            isCalibrating = false;
-                                        }
+//                                        long timePassed = System.nanoTime() - startTime;
+//                                        if(timePassed > calibrateTime) {
+//                                            isCalibrating = false;
+//                                        }
+//
+//                                        final double number = format.parse(string).doubleValue();
+//                                        if(isCalibrating) {
+//                                            doUpdate("Calibration will last for 15 seconds.");
+//                                            if(number > maxBreath) {
+//                                                maxBreath = number;
+//                                            }
+//                                            if(number < minBreath) {
+//                                                minBreath = number;
+//                                            }
+//                                            addEntry(number, 0);
+//                                        }
+//                                        else {
+//                                            // double currTime = System.nanoTime() - startTime;
+//                                            final double calibrated = 10 * ((number - maxBreath) / (minBreath - maxBreath));
+//                                            double currTime = System.nanoTime() - startTime;
+//                                            double aspiration = amplitude*(Math.sin(angularFrequency * currTime/1000000000)) + baseline;
+//                                            addEntry(calibrated, aspiration);
+//                                        }
 
-                                        final double number = format.parse(string).doubleValue();
-                                        if(isCalibrating) {
-                                            doUpdate("Calibration will last for 15 seconds.");
-                                            if(number > maxBreath) {
-                                                maxBreath = number;
-                                            }
-                                            if(number < minBreath) {
-                                                minBreath = number;
-                                            }
-                                            addEntry(number, 0);
-                                        }
-                                        else {
-                                            // double currTime = System.nanoTime() - startTime;
-                                            final double calibrated = 10 * ((number - maxBreath) / (minBreath - maxBreath));
-                                            double currTime = System.nanoTime() - startTime;
-                                            double aspiration = amplitude*(Math.sin(angularFrequency * currTime/1000000000)) + baseline;
-                                            addEntry(calibrated, aspiration);
-                                        }
+                                        doUpdate(string);
 
-                                        //doUpdate(string);
-
-                                    } catch(ParseException e) {
+                                    } //catch(ParseException e) {
+                                    catch(Exception e) {
                                         doUpdate(e.getMessage());
                                     }
                                     //for(int i = 0; i < 100; i++) {
