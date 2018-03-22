@@ -12,29 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- <activity android:name=".DashboardActivity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
+         <activity android:name=".DashboardActivity">
+         <intent-filter>
+         <action android:name="android.intent.action.MAIN" />
 
 
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
+         <category android:name="android.intent.category.LAUNCHER" />
+         </intent-filter>
+         </activity>
         <activity
             android:name=".BluetoothActivity"
             android:label="@string/title_activity_bluetooth">
             <!--android:theme="@style/AppTheme.NoActionBar">-->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity
-            android:name=".GitTestActivity"
-            android:label="@string/title_activity_git_test"/>
-            <!--android:theme="@style/AppTheme.NoActionBar" />-->
-        <activity android:name=".DashboardActivity"/>
+        <!--android:theme="@style/AppTheme.NoActionBar" />-->
+
     </application>
 
 </manifest>
