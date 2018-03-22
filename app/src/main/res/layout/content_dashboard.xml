@@ -17,24 +17,24 @@
         android:layout_marginTop="27dp"
         android:text="Select a Breathing Exercise:"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/HaraButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/HaraButton"
         android:layout_width="181dp"
         android:layout_height="79dp"
         android:layout_marginBottom="33dp"
         android:background="@android:color/holo_blue_light"
         android:text="Hara Breathing"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/AbdominalButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/AbdominalButton"
         android:layout_width="181dp"
         android:layout_height="79dp"
         android:layout_marginBottom="141dp"
@@ -43,5 +43,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/HaraButton" />
 </android.support.constraint.ConstraintLayout>
