@@ -51,7 +51,7 @@ import java.util.UUID;
 public class BluetoothActivity extends Activity {
     //    private final String DEVICE_NAME="MyBTBee";
     //private final String DEVICE_ADDRESS="20:13:10:15:33:66";
-    private final String DEVICE_NAME = "SmartShoe";
+    private final String DEVICE_NAME = "HC-05";
 
     private static final Random RANDOM = new Random();
     private final UUID PORT_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");//Serial Port Service ID
@@ -59,7 +59,7 @@ public class BluetoothActivity extends Activity {
     private BluetoothSocket socket;
     private OutputStream outputStream;
     private InputStream inputStream;
-    Button startButton, sendButton,clearButton,stopButton;
+    Button startButton, stopButton;
     TextView textView;
     EditText editText;
     boolean deviceConnected=false;
@@ -91,6 +91,8 @@ public class BluetoothActivity extends Activity {
         textView = (TextView) findViewById(R.id.btTextView);
         textView.setEnabled(true);
         setUiEnabled(false);
+
+
 
 //        graph = (GraphView) findViewById(R.id.graph);
 //
@@ -192,7 +194,7 @@ public class BluetoothActivity extends Activity {
                 isCalibrating = true;
                 startTime = System.nanoTime();
                 beginListenForData();
-                textView.append("\nConnection Opened!\n");
+                textView.setText("\nConnection Opened!\n");
             }
         }
     }
@@ -206,7 +208,7 @@ public class BluetoothActivity extends Activity {
 
     void beginListenForData()
     {
-        textView.append("Listen for data\n");
+        textView.setText("Listen for data\n");
         final Handler handler = new Handler();
         stopThread = false;
         buffer = new byte[1024];
@@ -272,7 +274,7 @@ public class BluetoothActivity extends Activity {
                     catch (IOException ex)
                     {
                         stopThread = true;
-                        textView.append("Stop thread\n");
+                        textView.setText("Stop thread\n");
                     }
                 }
             }
@@ -301,7 +303,7 @@ public class BluetoothActivity extends Activity {
         setUiEnabled(false);
         deviceConnected=false;
 //        graph.removeAllSeries();
-        textView.append("\nConnection Closed!\n");
+        textView.setText("\nConnection Closed!\n");
     }
 
     public void onClickClear(View view) {
