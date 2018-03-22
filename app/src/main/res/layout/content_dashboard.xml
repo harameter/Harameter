@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.harameter.harameter.gamemenu"
-    tools:showIn="@layout/activity_gamemenu">
+    tools:context="com.example.harameter.harameter.DashboardActivity"
+    tools:showIn="@layout/activity_dashboard">
 
     <TextView
         android:id="@+id/textView"
