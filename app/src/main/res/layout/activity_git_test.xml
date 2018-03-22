@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.harameter.harameter.gamemenu">
+    tools:context="com.example.harameter.harameter.GitTestActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,15 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_gamemenu" />
-
-    <include
-        layout="@layout/content_bluetooth"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        tools:layout_editor_absoluteY="-2dp" />
-
+    <include layout="@layout/content_git_test" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
