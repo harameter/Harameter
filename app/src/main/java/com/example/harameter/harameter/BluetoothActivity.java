@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -37,6 +38,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
+
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -82,6 +90,9 @@ public class BluetoothActivity extends Activity {
     double angularFrequency = Math.PI * 2 * frequency;
     double baseline = 5.0;
 
+    GraphView graph;
+    LineGraphSeries userData;
+    LineGraphSeries aspirationalData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,18 +105,17 @@ public class BluetoothActivity extends Activity {
 
 
 
-//        graph = (GraphView) findViewById(R.id.graph);
+        graph = (GraphView) findViewById(R.id.graph);
+        GridLabelRenderer graphStyle = graph.getGridLabelRenderer();
+        graphStyle.setGridStyle(GridLabelRenderer.GridStyle.NONE);
 //
 //        // customize a little bit viewport
-//        Viewport viewport = graph.getViewport();
-//        viewport.setYAxisBoundsManual(true);
-//        viewport.setMinY(0);
-//        viewport.setMaxY(10);
-//        viewport.setScrollable(true);
-//        series1 = new LineGraphSeries<DataPoint>();
-//        series2 = new LineGraphSeries<DataPoint>();
-//        graph.addSeries(series1);
-//        graph.addSeries(series2);
+        Viewport viewport = graph.getViewport();
+        viewport.setYAxisBoundsManual(true);
+        viewport.setMinY(0);
+        viewport.setMaxY(10);
+        viewport.setScrollable(true);
+
     }
 
     public void setUiEnabled(boolean bool)
@@ -193,6 +203,16 @@ public class BluetoothActivity extends Activity {
                 deviceConnected=true;
                 isCalibrating = true;
                 startTime = System.nanoTime();
+
+                // make graph visible
+                graph.setVisibility(View.VISIBLE);
+                // add series to graph
+                userData = new LineGraphSeries<DataPoint>();
+                userData.setColor(Color.BLUE);
+                aspirationalData = new LineGraphSeries<DataPoint>();
+                aspirationalData.setColor(Color.RED);
+                graph.addSeries(userData);
+                graph.addSeries(aspirationalData);
                 beginListenForData();
                 textView.setText("\nConnection Opened!\n");
             }
@@ -200,9 +220,9 @@ public class BluetoothActivity extends Activity {
     }
 
     private void addEntry(double num, double aspiration) {
-//        series1.appendData(new DataPoint(series1lastX++, num), true, 100);
+        userData.appendData(new DataPoint(series1lastX++, num), true, 100);
 //
-//        series2.appendData(new DataPoint(series2lastX++, aspiration), true, 100);
+        aspirationalData.appendData(new DataPoint(series2lastX++, aspiration), true, 100);
     }
 
 
@@ -232,29 +252,29 @@ public class BluetoothActivity extends Activity {
                                 {
                                     DecimalFormat format = new DecimalFormat("#.#");
                                     try {
-//                                        long timePassed = System.nanoTime() - startTime;
-//                                        if(timePassed > calibrateTime) {
-//                                            isCalibrating = false;
-//                                        }
-//
-//                                        final double number = format.parse(string).doubleValue();
-//                                        if(isCalibrating) {
-//                                            doUpdate("Calibration will last for 15 seconds.");
-//                                            if(number > maxBreath) {
-//                                                maxBreath = number;
-//                                            }
-//                                            if(number < minBreath) {
-//                                                minBreath = number;
-//                                            }
-//                                            addEntry(number, 0);
-//                                        }
-//                                        else {
-//                                            // double currTime = System.nanoTime() - startTime;
-//                                            final double calibrated = 10 * ((number - maxBreath) / (minBreath - maxBreath));
-//                                            double currTime = System.nanoTime() - startTime;
-//                                            double aspiration = amplitude*(Math.sin(angularFrequency * currTime/1000000000)) + baseline;
-//                                            addEntry(calibrated, aspiration);
-//                                        }
+                                        long timePassed = System.nanoTime() - startTime;
+                                        if(timePassed > calibrateTime) {
+                                            isCalibrating = false;
+                                        }
+
+                                        final double number = format.parse(string).doubleValue();
+                                        if(isCalibrating) {
+                                            doUpdate("Calibration will last for 15 seconds.");
+                                            if(number > maxBreath) {
+                                                maxBreath = number;
+                                            }
+                                            if(number < minBreath) {
+                                                minBreath = number;
+                                            }
+                                            addEntry(number, 0);
+                                        }
+                                        else {
+                                            // double currTime = System.nanoTime() - startTime;
+                                            final double calibrated = 10 * ((number - maxBreath) / (minBreath - maxBreath));
+                                            double currTime = System.nanoTime() - startTime;
+                                            double aspiration = amplitude*(Math.sin(angularFrequency * currTime/1000000000)) + baseline;
+                                            addEntry(calibrated, aspiration);
+                                        }
 
                                         doUpdate(string);
 
@@ -302,7 +322,8 @@ public class BluetoothActivity extends Activity {
         socket.close();
         setUiEnabled(false);
         deviceConnected=false;
-//        graph.removeAllSeries();
+        graph.removeAllSeries();
+        graph.setVisibility(View.GONE);
         textView.setText("\nConnection Closed!\n");
     }
 
