@@ -1,11 +1,31 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="HaraTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Roboto Light. -->
+    <style name="RobotoLightTextAppearance">
+        <item name="android:fontFamily">@font/robotolight</item>
+    </style>
+
+    <!-- Spinner Styling. -->
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/robotolight</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:height">50dp</item>
+        <item name="android:fontFamily">@font/robotolight</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>

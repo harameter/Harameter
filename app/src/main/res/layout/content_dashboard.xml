@@ -8,42 +8,151 @@
     tools:context="com.example.harameter.harameter.DashboardActivity"
     tools:showIn="@layout/activity_dashboard">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="317dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="48dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="27dp"
-        android:text="Select a Breathing Exercise:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintBottom_toTopOf="@+id/HaraButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/HaraButton"
-        android:layout_width="181dp"
-        android:layout_height="79dp"
-        android:layout_marginBottom="33dp"
-        android:background="@android:color/holo_blue_light"
-        android:text="Hara Breathing"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/colorPrimaryLight"
+        android:elevation="4dp"
+        android:fontFamily="@font/robotolight"
         android:onClick="onClickHaraButton"
-        app:layout_constraintBottom_toTopOf="@+id/AbdominalButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:text="Hara "
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/HaraInfo"
+        app:layout_constraintEnd_toStartOf="@+id/AbdominalButton"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/AbdominalButton"
-        android:layout_width="181dp"
-        android:layout_height="79dp"
-        android:layout_marginBottom="141dp"
-        android:background="@android:color/holo_green_light"
-        android:text="Abdominal Breathing"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"
+        android:background="@color/colorPrimaryLight"
+        android:elevation="4dp"
+        android:fontFamily="@font/robotolight"
         android:onClick="onClickAbdominalButton"
+        android:text="Abdominal"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/AbdominalInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/HaraButton" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="2dp"
+        android:background="@color/colorAccent"
+        android:elevation="4dp"
+        android:fontFamily="@font/robotolight"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/message"
+        app:layout_constraintEnd_toStartOf="@+id/accuracy"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/accuracy"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="2dp"
+        android:background="@color/colorAccent"
+        android:elevation="4dp"
+        android:fontFamily="@font/robotolight"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/message"
+        app:layout_constraintEnd_toStartOf="@+id/streak"
+        app:layout_constraintStart_toEndOf="@+id/date" />
+
+    <TextView
+        android:id="@+id/streak"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="@color/colorAccent"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/message"
+        app:layout_constraintEnd_toStartOf="@+id/select"
+        app:layout_constraintStart_toEndOf="@+id/accuracy" />
+
+    <Spinner
+        android:id="@+id/select"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        android:popupBackground="@color/colorPrimaryLight"
+        android:elevation="4dp"
+        android:popupElevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/message"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorHighlight"
+        android:fontFamily="@font/robotolight"
+        android:text="Select a Breathing Method ⤵"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/HaraButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/HaraInfo"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/colorHighlight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/AbdominalInfo"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/AbdominalInfo"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"
+        android:background="@color/colorHighlight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HaraButton" />
+        app:layout_constraintStart_toEndOf="@+id/HaraInfo" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/HaraInfo"
+        app:layout_constraintEnd_toEndOf="@+id/HaraInfo"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="@+id/HaraInfo"
+        app:layout_constraintTop_toTopOf="@+id/HaraInfo"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/hara" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/AbdominalInfo"
+        app:layout_constraintEnd_toEndOf="@+id/AbdominalInfo"
+        app:layout_constraintStart_toStartOf="@+id/AbdominalInfo"
+        app:layout_constraintTop_toTopOf="@+id/AbdominalInfo"
+        app:srcCompat="@drawable/abdominal" />
+
 </android.support.constraint.ConstraintLayout>
