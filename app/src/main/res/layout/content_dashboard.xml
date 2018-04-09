@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.harameter.harameter.DashboardActivity"
-    tools:showIn="@layout/activity_dashboard">
+    tools:showIn="@layout/activity_dashboard"
+    tools:ignore="ContentDescription">
 
     <Button
         android:id="@+id/HaraButton"
@@ -85,7 +86,7 @@
         android:id="@+id/select"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryLight"
         android:popupBackground="@color/colorPrimaryLight"
         android:elevation="4dp"
         android:popupElevation="4dp"
@@ -137,7 +138,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/HaraInfo"
         app:layout_constraintEnd_toEndOf="@+id/HaraInfo"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="@+id/HaraInfo"
         app:layout_constraintTop_toTopOf="@+id/HaraInfo"
         app:layout_constraintVertical_bias="0.0"
@@ -154,5 +155,33 @@
         app:layout_constraintStart_toStartOf="@+id/AbdominalInfo"
         app:layout_constraintTop_toTopOf="@+id/AbdominalInfo"
         app:srcCompat="@drawable/abdominal" />
+
+    <TextView
+        android:id="@+id/DashboardTitle"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimaryLight"
+        android:fontFamily="@font/robotolight"
+        android:text="Harameter"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/GoogleLetter"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/googlesample"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fill"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimaryLight"
+        app:layout_constraintEnd_toStartOf="@+id/GoogleLetter"
+        app:layout_constraintStart_toEndOf="@+id/DashboardTitle"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

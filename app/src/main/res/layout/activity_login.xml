@@ -4,6 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.harameter.harameter.LoginActivity">
+    android:fitsSystemWindows="true"
+    tools:context="com.example.harameter.harameter.LoginActivity"
+    tools:ignore="ContentDescription">
+
+    <ImageView
+        android:id="@+id/LoginBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/mountain"
+        android:cropToPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@android:drawable/screen_background_light_transparent" />
+
+    <Button
+        android:id="@+id/GoogleLoginButton"
+        android:layout_width="206dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorAccent"
+        android:elevation="4dp"
+        android:fontFamily="@font/robotoregular"
+        android:onClick="onClickGoogleLoginButton"
+        android:text="Login with Google"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalLeft"
+        app:layout_constraintTop_toTopOf="@+id/guidelineVertical" />
+
+    <TextView
+        android:id="@+id/HaraTitle"
+        android:layout_width="207dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/robotolight"
+        android:text="Harameter"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineVertical"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalLeft" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guidelineVertical"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineHorizontalLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineHorizontalRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
 
 </android.support.constraint.ConstraintLayout>
