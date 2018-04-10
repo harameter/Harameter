@@ -79,7 +79,7 @@ public class BluetoothActivity extends Activity {
 
     private int series1lastX = 0;
     private int series2lastX = 0;
-    private long calibrateTime = 15000000000l; //nanoseconds
+    private long calibrateTime = 5000000000l; //nanoseconds
     private long startTime = 0;
     private boolean isCalibrating = true;
     double maxBreath = 0.0;
@@ -91,8 +91,8 @@ public class BluetoothActivity extends Activity {
     double baseline = 5.0;
 
     GraphView graph;
-    LineGraphSeries userData;
-    LineGraphSeries aspirationalData;
+    LineGraphSeries<DataPoint> userData;
+    LineGraphSeries<DataPoint> aspirationalData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,12 +108,17 @@ public class BluetoothActivity extends Activity {
         graph = (GraphView) findViewById(R.id.graph);
         GridLabelRenderer graphStyle = graph.getGridLabelRenderer();
         graphStyle.setGridStyle(GridLabelRenderer.GridStyle.NONE);
+        graphStyle.setHorizontalLabelsVisible(false);
+        graphStyle.setVerticalLabelsVisible(false);
 //
 //        // customize a little bit viewport
         Viewport viewport = graph.getViewport();
         viewport.setYAxisBoundsManual(true);
+        viewport.setXAxisBoundsManual(true);
         viewport.setMinY(0);
         viewport.setMaxY(10);
+        viewport.setMinX(0);
+        viewport.setMaxX(100);
         viewport.setScrollable(true);
 
     }
@@ -195,6 +200,13 @@ public class BluetoothActivity extends Activity {
     }
 
     public void onClickStart(View view) {
+        userData = new LineGraphSeries<DataPoint>();
+        userData.setColor(Color.BLUE);
+        aspirationalData = new LineGraphSeries<DataPoint>();
+        aspirationalData.setColor(Color.RED);
+        graph.addSeries(userData);
+        graph.addSeries(aspirationalData);
+
         if(BTinit())
         {
             if(BTconnect())
@@ -207,22 +219,16 @@ public class BluetoothActivity extends Activity {
                 // make graph visible
                 graph.setVisibility(View.VISIBLE);
                 // add series to graph
-                userData = new LineGraphSeries<DataPoint>();
-                userData.setColor(Color.BLUE);
-                aspirationalData = new LineGraphSeries<DataPoint>();
-                aspirationalData.setColor(Color.RED);
-                graph.addSeries(userData);
-                graph.addSeries(aspirationalData);
+
                 beginListenForData();
                 textView.setText("\nConnection Opened!\n");
             }
         }
     }
 
-    private void addEntry(double num, double aspiration) {
-        userData.appendData(new DataPoint(series1lastX++, num), true, 100);
-//
-        aspirationalData.appendData(new DataPoint(series2lastX++, aspiration), true, 100);
+    void addEntry(double dataNum, double aspirationNum) {
+            userData.appendData(new DataPoint(series1lastX++, dataNum), true, 100);
+            aspirationalData.appendData(new DataPoint(series2lastX++, aspirationNum), true, 100);
     }
 
 
@@ -254,29 +260,32 @@ public class BluetoothActivity extends Activity {
                                     try {
                                         long timePassed = System.nanoTime() - startTime;
                                         if(timePassed > calibrateTime) {
+                                            doUpdate("Done calibrating!");
                                             isCalibrating = false;
                                         }
 
                                         final double number = format.parse(string).doubleValue();
+                                        //final double userVal = Math.abs(number);
                                         if(isCalibrating) {
-                                            doUpdate("Calibration will last for 15 seconds.");
+                                            doUpdate("Still calibrating: " + number);
                                             if(number > maxBreath) {
                                                 maxBreath = number;
                                             }
                                             if(number < minBreath) {
                                                 minBreath = number;
                                             }
-                                            addEntry(number, 0);
+                                            addEntry(number, 0.0);
                                         }
                                         else {
                                             // double currTime = System.nanoTime() - startTime;
-                                            final double calibrated = 10 * ((number - maxBreath) / (minBreath - maxBreath));
+                                            final double calibrated = Math.floor(10 * ((number - maxBreath) / (minBreath - maxBreath)) * 100) / 100;
                                             double currTime = System.nanoTime() - startTime;
-                                            double aspiration = amplitude*(Math.sin(angularFrequency * currTime/1000000000)) + baseline;
+                                            double aspiration = Math.floor((amplitude*(Math.sin(angularFrequency * currTime/1000000000)) + baseline) * 100) / 100;
                                             addEntry(calibrated, aspiration);
+                                            doUpdate("Calibrated: " + calibrated + " Aspir: " + aspiration);
                                         }
 
-                                        doUpdate(string);
+                                        //doUpdate(string);
 
                                     } //catch(ParseException e) {
                                     catch(Exception e) {
@@ -303,17 +312,6 @@ public class BluetoothActivity extends Activity {
         thread.start();
     }
 
-    public void onClickSend(View view) {
-        String string = editText.getText().toString();
-        string.concat("\n");
-        try {
-            outputStream.write(string.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        textView.setText("\nSent Data:"+string+"\n");
-
-    }
 
     public void onClickStop(View view) throws IOException {
         stopThread = true;
@@ -326,11 +324,6 @@ public class BluetoothActivity extends Activity {
         graph.setVisibility(View.GONE);
         textView.setText("\nConnection Closed!\n");
     }
-
-    public void onClickClear(View view) {
-        textView.setText("");
-    }
-
 
 
     private void doUpdate(String string) {
