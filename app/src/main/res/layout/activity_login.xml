@@ -24,15 +24,15 @@
         app:srcCompat="@android:drawable/screen_background_light_transparent" />
 
     <Button
-        android:id="@+id/GoogleLoginButton"
+        android:id="@+id/GuestButton"
         android:layout_width="206dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
         android:elevation="4dp"
         android:fontFamily="@font/robotoregular"
-        android:onClick="onClickGoogleLoginButton"
-        android:text="Login with Google"
+        android:onClick="onClick"
+        android:text="Login as Guest"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20sp"

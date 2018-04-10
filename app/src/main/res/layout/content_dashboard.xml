@@ -87,9 +87,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/colorPrimaryLight"
-        android:popupBackground="@color/colorPrimaryLight"
+        android:popupBackground="@color/colorHighlight"
         android:elevation="4dp"
-        android:popupElevation="4dp"
         app:layout_constraintBottom_toTopOf="@+id/message"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -130,32 +129,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/HaraInfo" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/HaraInfo"
-        app:layout_constraintEnd_toEndOf="@+id/HaraInfo"
-        app:layout_constraintHorizontal_bias="0.50"
-        app:layout_constraintStart_toStartOf="@+id/HaraInfo"
-        app:layout_constraintTop_toTopOf="@+id/HaraInfo"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/hara" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/AbdominalInfo"
-        app:layout_constraintEnd_toEndOf="@+id/AbdominalInfo"
-        app:layout_constraintStart_toStartOf="@+id/AbdominalInfo"
-        app:layout_constraintTop_toTopOf="@+id/AbdominalInfo"
-        app:srcCompat="@drawable/abdominal" />
-
     <TextView
         android:id="@+id/DashboardTitle"
         android:layout_width="150dp"
@@ -168,10 +141,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/GoogleLetter"
+        android:id="@+id/userletter"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/googlesample"
+        android:background="@drawable/userletter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -180,8 +153,32 @@
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:background="@color/colorPrimaryLight"
-        app:layout_constraintEnd_toStartOf="@+id/GoogleLetter"
+        app:layout_constraintEnd_toStartOf="@+id/userletter"
         app:layout_constraintStart_toEndOf="@+id/DashboardTitle"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/haraImage"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/hara"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/HaraInfo"
+        app:layout_constraintStart_toStartOf="@+id/HaraInfo"
+        app:layout_constraintTop_toTopOf="@+id/HaraInfo" />
+
+    <ImageView
+        android:id="@+id/abdominalImage"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/abdominal"
+        app:layout_constraintBottom_toBottomOf="@+id/AbdominalInfo"
+        app:layout_constraintEnd_toEndOf="@+id/AbdominalInfo"
+        app:layout_constraintStart_toEndOf="@+id/HaraInfo"
+        app:layout_constraintTop_toTopOf="@+id/AbdominalInfo" />
 
 </android.support.constraint.ConstraintLayout>

@@ -3,6 +3,7 @@
     package="com.example.harameter.harameter">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,17 +14,16 @@
         android:theme="@style/HaraTheme">
         <activity
             android:name=".DashboardActivity"
-            android:label="DashboardActivity">
-        </activity>
+            android:label="DashboardActivity"></activity>
         <activity
             android:name=".BluetoothActivity"
-            android:label="BluetoothActivity">
-        </activity>
+            android:label="BluetoothActivity"></activity>
         <activity
             android:name=".LoginActivity"
             android:label="LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
