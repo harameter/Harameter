@@ -79,9 +79,10 @@ public class BluetoothActivity extends Activity {
 
     private int series1lastX = 0;
     private int series2lastX = 0;
-    private long calibrateTime = 5000000000l; //nanoseconds
+    private long calibrateTime = 15000000000l; //nanoseconds
     private long startTime = 0;
-    private boolean isCalibrating = true;
+    private boolean isCalibrating = false;
+    private boolean hasCalibrated = false;
     double maxBreath = 0.0;
     double minBreath = 5.0;
     double amplitude = 5.0;
@@ -128,6 +129,12 @@ public class BluetoothActivity extends Activity {
         startButton.setEnabled(!bool);
         stopButton.setEnabled(bool);
 
+    }
+
+    public void onClickCalibrate(View view){
+        isCalibrating = true;
+        startTime = System.nanoTime();
+        doUpdate("Calibrating");
     }
 
     public boolean BTinit()
@@ -213,8 +220,6 @@ public class BluetoothActivity extends Activity {
             {
                 setUiEnabled(true);
                 deviceConnected=true;
-                isCalibrating = true;
-                startTime = System.nanoTime();
 
                 // make graph visible
                 graph.setVisibility(View.VISIBLE);
@@ -259,24 +264,30 @@ public class BluetoothActivity extends Activity {
                                     DecimalFormat format = new DecimalFormat("#.#");
                                     try {
                                         long timePassed = System.nanoTime() - startTime;
-                                        if(timePassed > calibrateTime) {
-                                            doUpdate("Done calibrating!");
+                                        if(!isCalibrating && !hasCalibrated) {
+                                            //doUpdate("Done calibrating!");
                                             isCalibrating = false;
                                         }
 
                                         final double number = format.parse(string).doubleValue();
                                         //final double userVal = Math.abs(number);
-                                        if(isCalibrating) {
-                                            doUpdate("Still calibrating: " + number);
+                                        if(isCalibrating && !hasCalibrated) {
+                                            //doUpdate("Calibration will last for 15 seconds.");
                                             if(number > maxBreath) {
                                                 maxBreath = number;
                                             }
                                             if(number < minBreath) {
                                                 minBreath = number;
                                             }
-                                            addEntry(number, 0.0);
+                                            timePassed = System.nanoTime() - startTime;
+                                            if(timePassed > calibrateTime) {
+                                                isCalibrating = false;
+                                                hasCalibrated = true;
+                                            }
+                                            addEntry(number, 0);
                                         }
-                                        else {
+
+                                        if(hasCalibrated) {
                                             // double currTime = System.nanoTime() - startTime;
                                             final double calibrated = Math.floor(10 * ((number - maxBreath) / (minBreath - maxBreath)) * 100) / 100;
                                             double currTime = System.nanoTime() - startTime;
@@ -319,6 +330,7 @@ public class BluetoothActivity extends Activity {
         inputStream.close();
         socket.close();
         setUiEnabled(false);
+        hasCalibrated = false;
         deviceConnected=false;
         graph.removeAllSeries();
         graph.setVisibility(View.GONE);
