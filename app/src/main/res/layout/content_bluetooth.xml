@@ -23,20 +23,21 @@ android:layout_height="match_parent" >
         android:id="@+id/buttonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/buttonStop"
-        android:layout_marginEnd="58dp"
-        android:layout_toStartOf="@+id/buttonStop"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="86dp"
         android:onClick="onClickStart"
-        android:text="Begin" />
+        android:text="Connect Device" />
 
     <Button
         android:id="@+id/buttonStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonCalibrate"
+        android:layout_alignBottom="@+id/buttonCalibrate"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="71dp"
-        android:layout_marginTop="62dp"
+        android:layout_marginEnd="15dp"
         android:onClick="onClickStop"
         android:text="Stop" />
 
@@ -47,6 +48,17 @@ android:layout_height="match_parent" >
         android:layout_alignStart="@+id/buttonStart"
         android:layout_below="@+id/buttonStart"
         android:layout_marginTop="48dp" />
+
+    <Button
+        android:id="@+id/buttonCalibrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonStart"
+        android:layout_alignBottom="@+id/buttonStart"
+        android:layout_marginEnd="14dp"
+        android:layout_toStartOf="@+id/buttonStop"
+        android:onClick="onClickCalibrate"
+        android:text="calibrate" />
 
     <!--<com.jjoe64.graphview.GraphView-->
     <!--android:id="@+id/graph"-->
