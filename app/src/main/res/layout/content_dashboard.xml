@@ -102,7 +102,7 @@
         android:layout_marginBottom="8dp"
         android:background="@color/colorHighlight"
         android:fontFamily="@font/robotolight"
-        android:text="Select a Breathing Method ⤵"
+        android:text="Select a Breathing Method"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/HaraButton"
         app:layout_constraintEnd_toEndOf="parent"
