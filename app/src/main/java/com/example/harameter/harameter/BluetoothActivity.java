@@ -309,7 +309,8 @@ public class BluetoothActivity extends Activity {
 
                                         if(hasCalibrated) {
                                             // double currTime = System.nanoTime() - startTime;
-                                            final double calibrated = Math.floor(10 * ((number - maxBreath) / (minBreath - maxBreath)) * 100) / 100;
+
+                                            final double calibrated = adjust(maxBreath, minBreath, number);
                                             double currTime = System.nanoTime() - startTime;
                                             double aspiration = Math.floor((amplitude*(Math.sin(angularFrequency * currTime/1000000000)) + baseline) * 100) / 100;
                                             //addEntry(calibrated, aspiration);
@@ -394,6 +395,12 @@ public class BluetoothActivity extends Activity {
     public void removeGraph() {
         graph.removeAllSeries();
         graph.setVisibility(View.GONE);
+    }
+
+    public static double adjust(double max, double min, double num){
+        double adjusted = Math.floor(10 * ((num - max) / (min - max)) * 100) / 100;
+        return adjusted;
+
     }
 
 
