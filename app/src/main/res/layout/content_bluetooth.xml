@@ -12,7 +12,8 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
 android:layout_height="match_parent" >
     <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
 <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
@@ -68,4 +69,14 @@ android:layout_height="match_parent" >
         android:layout_centerHorizontal="true"
         android:onClick="onClickCalibrate"
         android:text="Calibrate" />
+
+    <ImageView
+        android:id="@+id/cirlce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="185dp"
+        android:visibility="visible"
+        app:srcCompat="@android:drawable/ic_notification_overlay" />
 </RelativeLayout>

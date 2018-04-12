@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -70,6 +71,7 @@ public class BluetoothActivity extends Activity {
     Button startButton, stopButton;
     TextView textView;
     EditText editText;
+    ImageView circleImage;
     boolean deviceConnected=false;
     Thread thread;
     byte buffer[];
@@ -90,6 +92,10 @@ public class BluetoothActivity extends Activity {
     double frequency = 1/period;
     double angularFrequency = Math.PI * 2 * frequency;
     double baseline = 5.0;
+    double numbers [] = new double[10];
+    double weights [] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+
 
     GraphView graph;
     LineGraphSeries<DataPoint> userData;
@@ -98,6 +104,8 @@ public class BluetoothActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
+        circleImage =(ImageView) findViewById(R.id.cirlce);
+        circleImage.setEnabled(true);
         startButton = (Button) findViewById(R.id.buttonStart);
         stopButton = (Button) findViewById(R.id.buttonStop);
         textView = (TextView) findViewById(R.id.btTextView);
@@ -132,9 +140,11 @@ public class BluetoothActivity extends Activity {
     }
 
     public void onClickCalibrate(View view){
+
         isCalibrating = true;
         startTime = System.nanoTime();
-        doUpdate("Calibrating");
+        doUpdate("Calibrating for 15 seconds. Please expand and contract abdomen to your greatest range");
+        circleImage.setVisibility(view.VISIBLE);
     }
 
     public boolean BTinit()
@@ -206,13 +216,18 @@ public class BluetoothActivity extends Activity {
         return connected;
     }
 
-    public void onClickStart(View view) {
+    public void createGraph() {
         userData = new LineGraphSeries<DataPoint>();
         userData.setColor(Color.BLUE);
         aspirationalData = new LineGraphSeries<DataPoint>();
         aspirationalData.setColor(Color.RED);
         graph.addSeries(userData);
         graph.addSeries(aspirationalData);
+        graph.setVisibility(View.VISIBLE);
+    }
+
+    public void onClickStart(View view) {
+        //createGraph();
 
         if(BTinit())
         {
@@ -221,8 +236,7 @@ public class BluetoothActivity extends Activity {
                 setUiEnabled(true);
                 deviceConnected=true;
 
-                // make graph visible
-                graph.setVisibility(View.VISIBLE);
+
                 // add series to graph
 
                 beginListenForData();
@@ -265,8 +279,9 @@ public class BluetoothActivity extends Activity {
                                     try {
                                         long timePassed = System.nanoTime() - startTime;
                                         if(!isCalibrating && !hasCalibrated) {
-                                            //doUpdate("Done calibrating!");
-                                            isCalibrating = false;
+                                            doUpdate("Connection Found. Please Calibrate");
+                                            //doUpdate(string);
+                                            //isCalibrating = false;
                                         }
 
                                         final double number = format.parse(string).doubleValue();
@@ -283,8 +298,10 @@ public class BluetoothActivity extends Activity {
                                             if(timePassed > calibrateTime) {
                                                 isCalibrating = false;
                                                 hasCalibrated = true;
+                                                doUpdate("Follow Aspirational Curve");
+                                                createGraph();
                                             }
-                                            addEntry(number, 0);
+                                            //addEntry(number, 0);
                                         }
 
                                         if(hasCalibrated) {
@@ -292,15 +309,34 @@ public class BluetoothActivity extends Activity {
                                             final double calibrated = Math.floor(10 * ((number - maxBreath) / (minBreath - maxBreath)) * 100) / 100;
                                             double currTime = System.nanoTime() - startTime;
                                             double aspiration = Math.floor((amplitude*(Math.sin(angularFrequency * currTime/1000000000)) + baseline) * 100) / 100;
-                                            addEntry(calibrated, aspiration);
-                                            doUpdate("Calibrated: " + calibrated + " Aspir: " + aspiration);
+                                            //addEntry(calibrated, aspiration);
+
+                                                    // doUpdate("Calibrated: " + calibrated + " Aspir: " + aspiration);
+
+                                            ////moving average///
+
+                                            //move everything enter new
+                                            for(int i = numbers.length -1; i > 0; i --){
+                                                numbers[i] = numbers[i-1];
+                                            }
+                                            numbers[0] = calibrated;
+
+                                            ///calculate weighted average
+                                            double weightedAverage = 0;
+                                            for(int i = 0; i < numbers.length; i ++){
+                                                weightedAverage = weightedAverage + numbers[i]* weights[i];
+                                            }
+
+                                            weightedAverage = weightedAverage/55;
+                                            addEntry(weightedAverage, aspiration);
+
                                         }
 
                                         //doUpdate(string);
 
                                     } //catch(ParseException e) {
                                     catch(Exception e) {
-                                        doUpdate(e.getMessage());
+                                        //doUpdate(e.getMessage());
                                     }
                                     //for(int i = 0; i < 100; i++) {
                                     // addEntry();
@@ -332,9 +368,13 @@ public class BluetoothActivity extends Activity {
         setUiEnabled(false);
         hasCalibrated = false;
         deviceConnected=false;
+        removeGraph();
+        textView.setText("\nConnection Closed!\n");
+    }
+
+    public void removeGraph() {
         graph.removeAllSeries();
         graph.setVisibility(View.GONE);
-        textView.setText("\nConnection Closed!\n");
     }
 
 
