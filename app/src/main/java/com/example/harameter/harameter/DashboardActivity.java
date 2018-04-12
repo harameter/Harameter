@@ -1,9 +1,11 @@
 package com.example.harameter.harameter;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.text.Spannable;
@@ -13,14 +15,24 @@ import android.view.Gravity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import android.widget.ArrayAdapter;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class DashboardActivity extends Activity {
 
+    private DatabaseReference haraDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_dashboard);
+        haraDB = FirebaseDatabase.getInstance().getReference();
 
         //Date TextView
         TextView dateView = findViewById(R.id.date);
@@ -65,6 +77,18 @@ public class DashboardActivity extends Activity {
             accuracyView.setText(accuracySpannable);
             accuracyView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         }
+
+        //Streak
+        TextView streakView = findViewById(R.id.streak);
+        value = 13;
+        String streak = Integer.toString(value);
+        SpannableStringBuilder streakSpannable = new SpannableStringBuilder("Streak\n" + streak);
+        streakSpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                (streakSpannable.length() - streak.length()),
+                streakSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        streakView.setText(streakSpannable);
+        streakView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
         //Difficulty Select Spinner
         String[] difficulty = new String[] {"Beginner", "Advanced"};
