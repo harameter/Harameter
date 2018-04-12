@@ -95,7 +95,6 @@ public class BluetoothActivity extends Activity {
     double numbers [] = new double[10];
     double weights [] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     double numbers2 [] = new double[10];
-    double weights2 [] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 
 
@@ -308,47 +307,16 @@ public class BluetoothActivity extends Activity {
                                         }
 
                                         if(hasCalibrated) {
-                                            // double currTime = System.nanoTime() - startTime;
-
                                             final double calibrated = adjust(maxBreath, minBreath, number);
                                             double currTime = System.nanoTime() - startTime;
                                             double aspiration = Math.floor((amplitude*(Math.sin(angularFrequency * currTime/1000000000)) + baseline) * 100) / 100;
                                             //addEntry(calibrated, aspiration);
-
-                                                    // doUpdate("Calibrated: " + calibrated + " Aspir: " + aspiration);
-
-                                            ////moving average///
-
-                                            //move everything enter new
-                                            for(int i = numbers.length -1; i > 0; i --){
-                                                numbers[i] = numbers[i-1];
-                                            }
-                                            numbers[0] = calibrated;
-
-                                            ///calculate weighted average USERDATA
-                                            double weightedAverage = 0;
-                                            for(int i = 0; i < numbers.length; i ++){
-                                                weightedAverage = weightedAverage + numbers[i]* weights[i];
-                                            }
-
-                                            weightedAverage = weightedAverage/55;
-
-
-                                            for(int i = numbers2.length -1; i > 0; i --){
-                                                numbers2[i] = numbers2[i-1];
-                                            }
-                                            numbers2[0] = aspiration;
-
-                                            ///calculate weighted average ASPirATIONAL
-                                            double weightedAverage2 = 0;
-                                            for(int i = 0; i < numbers.length; i ++){
-                                                weightedAverage2 = weightedAverage2 + numbers2[i]* weights2[i];
-                                            }
-
-                                            weightedAverage2 = weightedAverage2/55;
-
-
-                                            addEntry(weightedAverage, weightedAverage2);
+                                            // doUpdate("Calibrated: " + calibrated + " Aspir: " + aspiration);
+                                            double weightedAverageUser;
+                                            weightedAverageUser = movingWindowWeightedAverage(weights, numbers, calibrated);
+                                            double weightedAverageAspiration;
+                                            weightedAverageAspiration = movingWindowWeightedAverage(weights, numbers2, aspiration);
+                                            addEntry(weightedAverageUser, weightedAverageAspiration);
 
                                         }
 
@@ -400,6 +368,23 @@ public class BluetoothActivity extends Activity {
     public static double adjust(double max, double min, double num){
         double adjusted = Math.floor(10 * ((num - max) / (min - max)) * 100) / 100;
         return adjusted;
+
+    }
+
+    public static double movingWindowWeightedAverage(double[] w, double[] values, double newNum){
+        for(int i = values.length -1; i > 0; i --){
+            values[i] = values[i-1];
+        }
+        values[0] = newNum;
+
+        ///calculate weighted average USERDATA
+        double weightedAverage = 0;
+        for(int i = 0; i < values.length; i ++){
+            weightedAverage = weightedAverage + values[i]* w[i];
+        }
+
+        weightedAverage = weightedAverage/55;
+        return weightedAverage;
 
     }
 
