@@ -28,7 +28,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 9001;
-    @VisibleForTesting
+    //@VisibleForTesting
     public ProgressDialog mProgressDialog;
 
     // [START declare_auth]'
@@ -67,6 +67,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+        signOut();
     }
 
     public void showProgressDialog() {
@@ -141,6 +142,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signin]
+
+    private void signOut() {
+        // Firebase sign out
+        mAuth.signOut();
+
+        // Google sign out
+        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        updateUI(null);
+                    }
+                });
+    }
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
