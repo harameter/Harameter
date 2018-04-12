@@ -94,6 +94,8 @@ public class BluetoothActivity extends Activity {
     double baseline = 5.0;
     double numbers [] = new double[10];
     double weights [] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    double numbers2 [] = new double[10];
+    double weights2 [] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 
 
@@ -298,6 +300,7 @@ public class BluetoothActivity extends Activity {
                                             if(timePassed > calibrateTime) {
                                                 isCalibrating = false;
                                                 hasCalibrated = true;
+                                                circleImage.setVisibility(View.INVISIBLE);
                                                 doUpdate("Follow Aspirational Curve");
                                                 createGraph();
                                             }
@@ -321,14 +324,30 @@ public class BluetoothActivity extends Activity {
                                             }
                                             numbers[0] = calibrated;
 
-                                            ///calculate weighted average
+                                            ///calculate weighted average USERDATA
                                             double weightedAverage = 0;
                                             for(int i = 0; i < numbers.length; i ++){
                                                 weightedAverage = weightedAverage + numbers[i]* weights[i];
                                             }
 
                                             weightedAverage = weightedAverage/55;
-                                            addEntry(weightedAverage, aspiration);
+
+
+                                            for(int i = numbers2.length -1; i > 0; i --){
+                                                numbers2[i] = numbers2[i-1];
+                                            }
+                                            numbers2[0] = aspiration;
+
+                                            ///calculate weighted average ASPirATIONAL
+                                            double weightedAverage2 = 0;
+                                            for(int i = 0; i < numbers.length; i ++){
+                                                weightedAverage2 = weightedAverage2 + numbers2[i]* weights2[i];
+                                            }
+
+                                            weightedAverage2 = weightedAverage2/55;
+
+
+                                            addEntry(weightedAverage, weightedAverage2);
 
                                         }
 

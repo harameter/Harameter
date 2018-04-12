@@ -74,9 +74,9 @@ android:layout_height="match_parent" >
         android:id="@+id/cirlce"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/btTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="185dp"
-        android:visibility="visible"
+        android:layout_marginTop="172dp"
+        android:visibility="invisible"
         app:srcCompat="@android:drawable/ic_notification_overlay" />
 </RelativeLayout>
