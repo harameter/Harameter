@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "595503027927-01tp0rdlk83evmgboqrljkc7glpuuki6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.harameter.harameter",
+            "certificate_hash": "d0312815fdf87a94f1c8834659f606ac612db442"
+          }
+        },
+        {
+          "client_id": "595503027927-87sfpm9ee8b0sc32ce01aougd0u3bmae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.harameter.harameter",
+            "certificate_hash": "31cbb9c8c7ab3338dd84557e291346425a0f87b8"
+          }
+        },
+        {
           "client_id": "595503027927-v2q1qejbc13m12ul4avr6i3k2er3ev15.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
