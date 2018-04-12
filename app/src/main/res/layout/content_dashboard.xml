@@ -78,6 +78,9 @@
         android:layout_height="100dp"
         android:background="@color/colorAccent"
         android:elevation="4dp"
+        android:fontFamily="@font/robotolight"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/message"
         app:layout_constraintEnd_toStartOf="@+id/select"
         app:layout_constraintStart_toEndOf="@+id/accuracy" />
