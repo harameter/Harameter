@@ -15,16 +15,16 @@
       },
       "oauth_client": [
         {
-          "client_id": "595503027927-v2q1qejbc13m12ul4avr6i3k2er3ev15.apps.googleusercontent.com",
+          "client_id": "595503027927-4rh95g2o9b7o43lmp5k71udd47abme4t.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "595503027927-of5e5oshvitnan3ebje0dchhs9cs5gg4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.harameter.harameter",
-            "certificate_hash": "91da024ce99520f965cb07072b4f1fd4e8d0eece"
+            "certificate_hash": "fad752a89fdc109c5304d7b4e8c32f6cd4caccf4"
           }
-        },
-        {
-          "client_id": "595503027927-o21qptrsd1iaj9n0qttkbfss62gcvvut.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "595503027927-o21qptrsd1iaj9n0qttkbfss62gcvvut.apps.googleusercontent.com",
+              "client_id": "595503027927-4rh95g2o9b7o43lmp5k71udd47abme4t.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
