@@ -160,7 +160,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
+            String initial = user.getDisplayName().substring(0, 1);
             Intent loginIntent = new Intent(this, DashboardActivity.class);
+            loginIntent.putExtra("GOOGLE_INITIAL", initial);
             startActivity(loginIntent);
         } else {
         }

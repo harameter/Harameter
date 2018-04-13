@@ -144,20 +144,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/userletter"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/userletter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/fill"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:background="@color/colorPrimaryLight"
-        app:layout_constraintEnd_toStartOf="@+id/userletter"
+        app:layout_constraintEnd_toStartOf="@+id/fill2"
         app:layout_constraintStart_toEndOf="@+id/DashboardTitle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fill2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimaryLight"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -183,5 +183,24 @@
         app:layout_constraintEnd_toEndOf="@+id/AbdominalInfo"
         app:layout_constraintStart_toEndOf="@+id/HaraInfo"
         app:layout_constraintTop_toTopOf="@+id/AbdominalInfo" />
+
+    <Button
+        android:id="@+id/initial"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/initial_circle"
+        android:elevation="4dp"
+        android:fontFamily="@font/robotolight"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/fill2"
+        app:layout_constraintEnd_toEndOf="@+id/fill2"
+        app:layout_constraintStart_toStartOf="@+id/fill2"
+        app:layout_constraintTop_toTopOf="@+id/fill2" />
 
 </android.support.constraint.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -103,6 +104,9 @@ public class DashboardActivity extends Activity {
         message.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         TextView title = findViewById(R.id.DashboardTitle);
         title.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        Button initial = findViewById(R.id.initial);
+        initial.setText(getIntent().getStringExtra("GOOGLE_INITIAL"));
+        initial.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
     }
 
