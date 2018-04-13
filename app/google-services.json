@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "595503027927-5hoffesko7f0vthd6ffq8m8i3gls8e1i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.harameter.harameter",
+            "certificate_hash": "91da024ce99520f965cb07072b4f1fd4e8d0eece"
+          }
+        },
+        {
           "client_id": "595503027927-4rh95g2o9b7o43lmp5k71udd47abme4t.apps.googleusercontent.com",
           "client_type": 3
         },
