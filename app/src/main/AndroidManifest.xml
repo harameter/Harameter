@@ -7,9 +7,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/icon"
+        android:roundIcon="@drawable/roundicon"
         android:supportsRtl="true"
         android:theme="@style/HaraTheme">
         <activity
@@ -20,7 +19,7 @@
             android:label="BluetoothActivity"></activity>
         <activity
             android:name=".LoginActivity"
-            android:label="LoginActivity">
+            android:label="Harameter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
