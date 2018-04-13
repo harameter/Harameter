@@ -46,7 +46,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
         // Button listeners
-        findViewById(R.id.GuestButton).setOnClickListener(this);
+        findViewById(R.id.GoogleButton).setOnClickListener(this);
+        findViewById(R.id.DemoButton).setOnClickListener(this);
 
 
         // Configure sign-in to request the user's ID, email address, and basic
@@ -168,12 +169,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view){
         switch (view.getId()) {
-            case R.id.GuestButton:
+            case R.id.GoogleButton:
+                signIn();
+                break;
+            case R.id.DemoButton:
                 Intent loginIntent = new Intent(this, DashboardActivity.class);
                 startActivity(loginIntent);
-                //signIn();
                 break;
         }
+
     }
 
 }

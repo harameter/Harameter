@@ -24,21 +24,37 @@
         app:srcCompat="@android:drawable/screen_background_light_transparent" />
 
     <Button
-        android:id="@+id/GuestButton"
+    android:id="@+id/GoogleButton"
+    android:layout_width="206dp"
+    android:layout_height="50dp"
+    android:layout_marginTop="8dp"
+    android:background="@color/colorAccent"
+    android:elevation="4dp"
+    android:fontFamily="@font/robotoregular"
+    android:onClick="onClick"
+    android:text="Login with Google"
+    android:textAllCaps="false"
+    android:textColor="#FFFFFF"
+    android:textSize="20sp"
+    app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalRight"
+    app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalLeft"
+    app:layout_constraintTop_toTopOf="@+id/guidelineVertical" />
+
+    <Button
+        android:id="@+id/DemoButton"
         android:layout_width="206dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimaryLight"
         android:elevation="4dp"
-        android:fontFamily="@font/robotoregular"
+        android:fontFamily="@font/robotolight"
         android:onClick="onClick"
-        android:text="Login as Guest"
+        android:text="Demo Mode"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalLeft"
-        app:layout_constraintTop_toTopOf="@+id/guidelineVertical" />
+        app:layout_constraintTop_toBottomOf="@+id/GoogleButton" />
 
     <TextView
         android:id="@+id/HaraTitle"
