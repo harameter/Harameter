@@ -189,7 +189,7 @@
         android:id="@+id/initial"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="35dp"
         android:layout_marginEnd="25dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
@@ -208,35 +208,32 @@
     <Button
         android:id="@+id/signout"
         android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="25dp"
-        android:background="@color/colorAccent"
-        android:elevation="4dp"
-        android:fontFamily="@font/robotoregular"
+        android:layout_height="50dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/signout"
+        android:elevation="48dp"
+        android:fontFamily="@font/robotolight"
         android:onClick="onClickSignOutButton"
         android:text="Sign Out"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/fill"
-        app:layout_constraintEnd_toStartOf="@+id/initial"
-        app:layout_constraintTop_toTopOf="@+id/fill"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <TextView
         android:id="@+id/username"
         android:layout_width="100dp"
-        android:layout_height="25dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="75dp"
+        android:background="@drawable/drop"
         android:fontFamily="@font/robotolight"
         android:text="Name"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/signout"
-        app:layout_constraintEnd_toEndOf="@+id/signout" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
