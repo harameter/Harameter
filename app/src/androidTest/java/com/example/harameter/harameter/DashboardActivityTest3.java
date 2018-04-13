@@ -18,16 +18,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.hamcrest.core.StringContains.containsString;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class LoginActivityTest extends InstrumentationTestCase {
+public class DashboardActivityTest3 extends InstrumentationTestCase {
 
 
 
@@ -44,20 +50,30 @@ public class LoginActivityTest extends InstrumentationTestCase {
     }
 
     @Rule
-    public ActivityTestRule<LoginActivity> activityRule
+    public ActivityTestRule<DashboardActivity> activityRule
             = new ActivityTestRule<>(
-            LoginActivity.class,
+            DashboardActivity.class,
             true,     // initialTouchMode
             false);   // launchActivity. False to customize the intent
 
+
+
     @Test
-    public void testOnClickGuestButton() throws Exception {
-        final LoginActivity lA =  activityRule.launchActivity(new Intent(Intent.ACTION_MAIN));
-        onView(withId(R.id.GuestButton)).perform(click());
+    public void textOnClickSelection() throws Exception {
+        final DashboardActivity lA =  activityRule.launchActivity(new Intent(Intent.ACTION_MAIN));
+        onView(withId(R.id.select)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Beginner"))).perform(click());
+        onView(withId(R.id.select)).check(matches(withSpinnerText(containsString("Beginner"))));
+        activityRule.finishActivity();
     }
 
-    public void testOnClickAbdominalButton() throws Exception {
-
+    @Test
+    public void textOnClickSelection2() throws Exception {
+        final DashboardActivity lA =  activityRule.launchActivity(new Intent(Intent.ACTION_MAIN));
+        onView(withId(R.id.select)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Advanced"))).perform(click());
+        onView(withId(R.id.select)).check(matches(withSpinnerText(containsString("Advanced"))));
+        activityRule.finishActivity();
     }
 
 }

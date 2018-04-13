@@ -33,7 +33,7 @@ import static org.hamcrest.core.StringContains.containsString;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class DashboardActivityTest extends InstrumentationTestCase {
+public class DashboardActivityTest2 extends InstrumentationTestCase {
 
 
 
@@ -56,12 +56,15 @@ public class DashboardActivityTest extends InstrumentationTestCase {
             true,     // initialTouchMode
             false);   // launchActivity. False to customize the intent
 
+
+
     @Test
-    public void testOnClickHaraButton() throws Exception {
+    public void testOnClickAbdominalButton() throws Exception {
         final DashboardActivity lA =  activityRule.launchActivity(new Intent(Intent.ACTION_MAIN));
-        onView(withId(R.id.HaraButton)).perform(click());
+        onView(withId(R.id.AbdominalButton)).perform(click());
         activityRule.finishActivity();
     }
+
 
 
 }

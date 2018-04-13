@@ -18,22 +18,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
-import static org.hamcrest.core.StringContains.containsString;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class DashboardActivityTest extends InstrumentationTestCase {
+public class LoginActivityTest extends InstrumentationTestCase {
 
 
 
@@ -50,18 +44,20 @@ public class DashboardActivityTest extends InstrumentationTestCase {
     }
 
     @Rule
-    public ActivityTestRule<DashboardActivity> activityRule
+    public ActivityTestRule<LoginActivity> activityRule
             = new ActivityTestRule<>(
-            DashboardActivity.class,
+            LoginActivity.class,
             true,     // initialTouchMode
             false);   // launchActivity. False to customize the intent
 
     @Test
-    public void testOnClickHaraButton() throws Exception {
-        final DashboardActivity lA =  activityRule.launchActivity(new Intent(Intent.ACTION_MAIN));
-        onView(withId(R.id.HaraButton)).perform(click());
-        activityRule.finishActivity();
+    public void testOnClickGuestButton() throws Exception {
+        final LoginActivity lA =  activityRule.launchActivity(new Intent(Intent.ACTION_MAIN));
+        onView(withId(R.id.DemoButton)).perform(click());
     }
 
+    public void testOnClickAbdominalButton() throws Exception {
+
+    }
 
 }

@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({DashboardActivityTest.class})
+@Suite.SuiteClasses({DashboardActivityTest.class, DashboardActivityTest2.class, DashboardActivityTest3.class, LoginActivityTest.class})
 public class InstrumentedUnitTestSuite {
 
 }
