@@ -169,9 +169,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View view){
         switch (view.getId()) {
             case R.id.GuestButton:
-                //Intent loginIntent = new Intent(this, DashboardActivity.class);
-                //startActivity(loginIntent);
-                signIn();
+                Intent loginIntent = new Intent(this, DashboardActivity.class);
+                startActivity(loginIntent);
+                //signIn();
                 break;
         }
     }
