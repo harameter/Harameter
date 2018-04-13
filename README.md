@@ -14,9 +14,9 @@ Unit tests:
 2) Select 'Run UnitTestSuite with Coverage' \
 \
 Instrumentation tests: 
-1) Right click on InstrumentedUnitTestSuite 
-2) Select 'Run InstrumentedUnitTestSuite \
+1) Right click on InstrumentedUnitTestSuite \
+2) Select 'Run InstrumentedUnitTestSuite'
 
 # Video demo using the Harameter belt
-https://www.youtube.com/watch?v=CboZ3i_cXCg \
+https://www.youtube.com/watch?v=CboZ3i_cXCg 
 
