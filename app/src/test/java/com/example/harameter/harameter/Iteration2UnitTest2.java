@@ -20,7 +20,7 @@ public class Iteration2UnitTest2 {
 
     public void movingWindowCorrect() throws Exception {
         double numbers [] = new double[10];
-        double weights [] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        assertEquals(BluetoothActivity.movingWindowWeightedAverage(weights, numbers, 55.0), 1.0, 0.0);
+        double weights [] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        assertEquals(BluetoothActivity.movingWindowWeightedAverage(weights, numbers, 55.0), 10.0, 0.0);
     }
 }

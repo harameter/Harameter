@@ -93,7 +93,7 @@ public class BluetoothActivity extends Activity {
     double angularFrequency = Math.PI * 2 * frequency;
     double baseline = 5.0;
     double numbers [] = new double[10];
-    double weights [] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    double weights [] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
     double numbers2 [] = new double[10];
 
 
