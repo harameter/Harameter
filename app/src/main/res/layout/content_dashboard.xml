@@ -149,6 +149,7 @@
         android:layout_height="100dp"
         android:background="@color/colorPrimaryLight"
         app:layout_constraintEnd_toStartOf="@+id/fill2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/DashboardTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -195,12 +196,47 @@
         android:background="@drawable/initial_circle"
         android:elevation="4dp"
         android:fontFamily="@font/robotolight"
+        android:onClick="onClickInitialButton"
         android:textAllCaps="false"
-        android:textSize="24sp"
         android:textColor="#FFFFFF"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/fill2"
         app:layout_constraintEnd_toEndOf="@+id/fill2"
         app:layout_constraintStart_toStartOf="@+id/fill2"
         app:layout_constraintTop_toTopOf="@+id/fill2" />
+
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/colorAccent"
+        android:elevation="4dp"
+        android:fontFamily="@font/robotoregular"
+        android:onClick="onClickSignOutButton"
+        android:text="Sign Out"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/fill"
+        app:layout_constraintEnd_toStartOf="@+id/initial"
+        app:layout_constraintTop_toTopOf="@+id/fill"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/robotolight"
+        android:text="Name"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/signout"
+        app:layout_constraintEnd_toEndOf="@+id/signout" />
 
 </android.support.constraint.ConstraintLayout>

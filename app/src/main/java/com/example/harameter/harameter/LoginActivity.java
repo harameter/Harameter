@@ -176,6 +176,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.DemoButton:
                 Intent loginIntent = new Intent(this, DashboardActivity.class);
+                loginIntent.putExtra("GOOGLE_INITIAL", "Demo");
                 startActivity(loginIntent);
                 break;
         }

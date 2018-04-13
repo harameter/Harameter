@@ -106,8 +106,42 @@ public class DashboardActivity extends Activity {
         title.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         Button initial = findViewById(R.id.initial);
         initial.setText(getIntent().getStringExtra("GOOGLE_INITIAL"));
+        Button signout = findViewById(R.id.signout);
+        TextView username = findViewById(R.id.username);
+        if (initial.getText().equals("Demo")) {
+            initial.setText("H");
+            initial.setBackgroundResource(R.drawable.demo_circle);
+            initial.setTextColor(0xFF000000);
+            signout.setBackgroundColor(0xFFe6e6ff);
+            signout.setTextColor(0xFF000000);
+            username.setText("Demo");
+        }
         initial.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        signout.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        username.setGravity(Gravity.CENTER_VERTICAL);
 
+
+    }
+
+
+    public void onClickInitialButton(View view){
+        Button signout = findViewById(R.id.signout);
+        TextView username = findViewById(R.id.username);
+        if (signout.getVisibility() == View.INVISIBLE) {
+            username.setVisibility(View.VISIBLE);
+            signout.setVisibility(View.VISIBLE);
+        }
+        else if (signout.getVisibility() == View.VISIBLE) {
+            username.setVisibility(View.INVISIBLE);
+            signout.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void onClickSignOutButton(View view){
+        Intent signoutIntent = new Intent(this, LoginActivity.class);
+        startActivity(signoutIntent);
+        Button signout = findViewById(R.id.signout);
+        signout.setVisibility(View.INVISIBLE);
     }
 
     public void onClickHaraButton(View view){
@@ -118,4 +152,6 @@ public class DashboardActivity extends Activity {
         Intent abdIntent = new Intent(this, BluetoothActivity.class);
         startActivity(abdIntent);
     }
+
+
 }
