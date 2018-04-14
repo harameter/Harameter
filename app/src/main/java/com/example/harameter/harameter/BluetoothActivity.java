@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +24,6 @@ import java.text.ParseException;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
-
-
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -58,7 +57,7 @@ import java.util.UUID;
 
 
 public class BluetoothActivity extends Activity {
-    //    private final String DEVICE_NAME="MyBTBee";
+    //private final String DEVICE_NAME="MyBTBee";
     //private final String DEVICE_ADDRESS="20:13:10:15:33:66";
     private final String DEVICE_NAME = "HC-05";
 
@@ -70,14 +69,15 @@ public class BluetoothActivity extends Activity {
     private InputStream inputStream;
     Button startButton, stopButton;
     TextView textView;
-    EditText editText;
-    ImageView circleImage;
+    //EditText editText;
+    TextView circleImage;
+    TextView info;
     boolean deviceConnected=false;
-    Thread thread;
+    //Thread thread;
     byte buffer[];
-    int bufferPosition;
+    //int bufferPosition;
     boolean stopThread;
-    // ConnectedThread mConnectedThread;
+    //ConnectedThread mConnectedThread;
 
     private int series1lastX = 0;
     private int series2lastX = 0;
@@ -96,8 +96,6 @@ public class BluetoothActivity extends Activity {
     double weights [] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
     double numbers2 [] = new double[10];
 
-
-
     GraphView graph;
     LineGraphSeries<DataPoint> userData;
     LineGraphSeries<DataPoint> aspirationalData;
@@ -105,23 +103,27 @@ public class BluetoothActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
-        circleImage =(ImageView) findViewById(R.id.cirlce);
+        circleImage = findViewById(R.id.circle);
         circleImage.setEnabled(true);
-        startButton = (Button) findViewById(R.id.buttonStart);
-        stopButton = (Button) findViewById(R.id.buttonStop);
-        textView = (TextView) findViewById(R.id.btTextView);
+        startButton = findViewById(R.id.buttonStart);
+        stopButton = findViewById(R.id.buttonStop);
+        textView = findViewById(R.id.btTextView);
+        info = findViewById(R.id.info);
+        String difficulty = getIntent().getStringExtra("DIFFICULTY");
+        String method = getIntent().getStringExtra("METHOD");
         textView.setEnabled(true);
+        textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        info.setText(method + ", " + difficulty);
+        info.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         setUiEnabled(false);
 
-
-
-        graph = (GraphView) findViewById(R.id.graph);
+        graph = findViewById(R.id.graph);
         GridLabelRenderer graphStyle = graph.getGridLabelRenderer();
         graphStyle.setGridStyle(GridLabelRenderer.GridStyle.NONE);
         graphStyle.setHorizontalLabelsVisible(false);
         graphStyle.setVerticalLabelsVisible(false);
-//
-//        // customize a little bit viewport
+
+        //customize a little bit viewport
         Viewport viewport = graph.getViewport();
         viewport.setYAxisBoundsManual(true);
         viewport.setXAxisBoundsManual(true);
@@ -229,7 +231,6 @@ public class BluetoothActivity extends Activity {
 
     public void onClickStart(View view) {
         //createGraph();
-
         if(BTinit())
         {
             if(BTconnect())
@@ -237,9 +238,7 @@ public class BluetoothActivity extends Activity {
                 setUiEnabled(true);
                 deviceConnected=true;
 
-
-                // add series to graph
-
+                //add series to graph
                 beginListenForData();
                 textView.setText("\nConnection Opened!\n");
             }
@@ -255,7 +254,7 @@ public class BluetoothActivity extends Activity {
     void beginListenForData()
     {
         textView.setText("Listen for data\n");
-        final Handler handler = new Handler();
+        //final Handler handler = new Handler();
         stopThread = false;
         buffer = new byte[1024];
         Thread thread  = new Thread(new Runnable()
@@ -322,14 +321,14 @@ public class BluetoothActivity extends Activity {
 
                                         //doUpdate(string);
 
-                                    } //catch(ParseException e) {
+                                    }
+                                    //catch(ParseException e) {
                                     catch(Exception e) {
                                         //doUpdate(e.getMessage());
                                     }
                                     //for(int i = 0; i < 100; i++) {
                                     // addEntry();
                                     //}
-
                                 }
                             });
 
@@ -387,7 +386,6 @@ public class BluetoothActivity extends Activity {
         return weightedAverage;
 
     }
-
 
     private void doUpdate(String string) {
         textView.setText(string);
