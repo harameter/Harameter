@@ -13,10 +13,10 @@
         android:theme="@style/HaraTheme">
         <activity
             android:name=".DashboardActivity"
-            android:label="DashboardActivity"></activity>
+            android:label="DashboardActivity" />
         <activity
             android:name=".BluetoothActivity"
-            android:label="BluetoothActivity"></activity>
+            android:label="BluetoothActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="Harameter">
@@ -26,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SplashActivity"></activity>
     </application>
 
 </manifest>

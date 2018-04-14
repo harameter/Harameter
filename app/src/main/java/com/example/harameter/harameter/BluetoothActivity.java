@@ -348,6 +348,7 @@ public class BluetoothActivity extends Activity {
 
 
     public void onClickStop(View view) throws IOException {
+        //-------------------------NOT JOSH----------------------------
         stopThread = true;
         outputStream.close();
         inputStream.close();
@@ -356,7 +357,11 @@ public class BluetoothActivity extends Activity {
         hasCalibrated = false;
         deviceConnected=false;
         removeGraph();
-        textView.setText("\nConnection Closed!\n");
+
+        //----------------------------JOSH-----------------------------------
+
+        /*textView.setText("\nConnection Closed!\n");
+        Intent stopIntent = new Intent(this, SplashActivity.class);*/
     }
 
     public void removeGraph() {
