@@ -24,25 +24,24 @@
         app:srcCompat="@android:drawable/screen_background_light_transparent" />
 
     <Button
-    android:id="@+id/GoogleButton"
-    android:layout_width="206dp"
-    android:layout_height="50dp"
-    android:layout_marginTop="8dp"
-    android:background="@color/colorAccent"
-    android:elevation="4dp"
-    android:fontFamily="@font/robotoregular"
-    android:onClick="onClick"
-    android:text="Login with Google"
-    android:textAllCaps="false"
-    android:textColor="#FFFFFF"
-    android:textSize="20sp"
-    app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalRight"
-    app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalLeft"
-    app:layout_constraintTop_toTopOf="@+id/guidelineVertical" />
+        android:id="@+id/GoogleButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        android:elevation="4dp"
+        android:fontFamily="@font/robotoregular"
+        android:onClick="onClick"
+        android:text="Sign in with Google"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalRight"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/guidelineVertical" />
 
     <Button
         android:id="@+id/DemoButton"
-        android:layout_width="206dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimaryLight"
@@ -81,13 +80,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineHorizontalRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.8" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/icon"
+        app:layout_constraintBottom_toTopOf="@+id/HaraTitle"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalLeft" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/google_g"
+        app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalLeft"
+        app:layout_constraintTop_toTopOf="@+id/guidelineVertical" />
 
 </android.support.constraint.ConstraintLayout>
