@@ -90,7 +90,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/colorPrimaryLight"
-        android:popupBackground="@color/colorHighlight"
+        android:popupBackground="#FFFFFF"
         android:elevation="4dp"
         app:layout_constraintBottom_toTopOf="@+id/message"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -205,13 +205,25 @@
         app:layout_constraintStart_toStartOf="@+id/fill2"
         app:layout_constraintTop_toTopOf="@+id/fill2" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/sine_fake"
+        app:layout_constraintBottom_toTopOf="@+id/date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fill"
+        app:layout_constraintVertical_bias="0.0" />
+
     <Button
         android:id="@+id/signout"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/signout"
-        android:elevation="48dp"
+        android:elevation="16dp"
         android:fontFamily="@font/robotomedium"
         android:onClick="onClickSignOutButton"
         android:text="Sign Out"
