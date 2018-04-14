@@ -54,14 +54,13 @@
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
-        android:layout_width="412dp"
-        android:layout_height="336dp"
-        android:layout_marginBottom="100dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/info" />
 
     <Button
         android:id="@+id/calibrateButton"

@@ -361,7 +361,8 @@ public class BluetoothActivity extends Activity {
         //----------------------------JOSH-----------------------------------
 
         /*textView.setText("\nConnection Closed!\n");
-        Intent stopIntent = new Intent(this, SplashActivity.class);*/
+        Intent stopIntent = new Intent(this, SplashActivity.class);
+        startActivity(stopIntent);*/
     }
 
     public void removeGraph() {
