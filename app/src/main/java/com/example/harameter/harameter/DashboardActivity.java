@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 public class DashboardActivity extends Activity {
 
     private DatabaseReference haraDB;
+    private Spinner select;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +94,7 @@ public class DashboardActivity extends Activity {
 
         //Difficulty Select Spinner
         String[] difficulty = new String[] {"Beginner", "Advanced"};
-        Spinner select = findViewById(R.id.select);
+        select = findViewById(R.id.select);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.spinner, difficulty);
         adapter.setDropDownViewResource(R.layout.dropdown_item);
@@ -105,24 +106,26 @@ public class DashboardActivity extends Activity {
         TextView title = findViewById(R.id.DashboardTitle);
         title.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         Button initial = findViewById(R.id.initial);
-        initial.setText(getIntent().getStringExtra("GOOGLE_INITIAL"));
+        String name = getIntent().getStringExtra("GOOGLE_NAME");
+        initial.setText(name.substring(0,1));
         Button signout = findViewById(R.id.signout);
         TextView username = findViewById(R.id.username);
-        if (initial.getText().equals("Demo")) {
+        username.setText(name);
+        if (name.equals("Demo")) {
             initial.setText("H");
+            username.setText("Demo");
             initial.setBackgroundResource(R.drawable.demo_circle);
             initial.setTextColor(0xFF000000);
-            signout.setBackgroundColor(0xFFe6e6ff);
-            signout.setTextColor(0xFF000000);
-            username.setText("Demo");
         }
         initial.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         signout.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        username.setGravity(Gravity.CENTER_VERTICAL);
-
-
+        username.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
     }
 
+    @Override
+    public void onBackPressed() {
+        //disabled for signout
+    }
 
     public void onClickInitialButton(View view){
         Button signout = findViewById(R.id.signout);
@@ -140,16 +143,18 @@ public class DashboardActivity extends Activity {
     public void onClickSignOutButton(View view){
         Intent signoutIntent = new Intent(this, LoginActivity.class);
         startActivity(signoutIntent);
-        Button signout = findViewById(R.id.signout);
-        signout.setVisibility(View.INVISIBLE);
     }
 
     public void onClickHaraButton(View view){
         Intent haraIntent = new Intent(this, BluetoothActivity.class);
+        haraIntent.putExtra("DIFFICULTY", select.getSelectedItem().toString());
+        haraIntent.putExtra("METHOD", "Hara");
         startActivity(haraIntent);
     }
     public void onClickAbdominalButton(View view){
         Intent abdIntent = new Intent(this, BluetoothActivity.class);
+        abdIntent.putExtra("DIFFICULTY", select.getSelectedItem().toString());
+        abdIntent.putExtra("METHOD", "Abdominal");
         startActivity(abdIntent);
     }
 

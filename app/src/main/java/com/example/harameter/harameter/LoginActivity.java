@@ -28,7 +28,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 9001;
-    //@VisibleForTesting
+
     public ProgressDialog mProgressDialog;
 
     // [START declare_auth]'
@@ -160,9 +160,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            String initial = user.getDisplayName().substring(0, 1);
+            String name = user.getDisplayName();
             Intent loginIntent = new Intent(this, DashboardActivity.class);
-            loginIntent.putExtra("GOOGLE_INITIAL", initial);
+            loginIntent.putExtra("GOOGLE_NAME", name);
             startActivity(loginIntent);
         } else {
         }
@@ -176,7 +176,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.DemoButton:
                 Intent loginIntent = new Intent(this, DashboardActivity.class);
-                loginIntent.putExtra("GOOGLE_INITIAL", "Demo");
+                loginIntent.putExtra("GOOGLE_NAME", "Demo");
                 startActivity(loginIntent);
                 break;
         }
