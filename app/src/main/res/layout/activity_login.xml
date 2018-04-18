@@ -17,31 +17,31 @@
         android:cropToPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/screen_background_light_transparent" />
 
     <Button
         android:id="@+id/GoogleButton"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/google_login"
         android:elevation="4dp"
         android:fontFamily="@font/robotoregular"
         android:onClick="onClick"
-        android:text="Sign in with Google"
+        android:text="Sign in"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalRight"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalLeft"
         app:layout_constraintTop_toTopOf="@+id/guidelineVertical" />
 
     <Button
         android:id="@+id/DemoButton"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorHighlight"
@@ -57,12 +57,13 @@
 
     <TextView
         android:id="@+id/HaraTitle"
-        android:layout_width="207dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/robotolight"
         android:text="Harameter"
         android:textAlignment="center"
+        android:textColor="#000000"
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineVertical"
         app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalRight"
@@ -80,14 +81,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineHorizontalRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.75" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -98,13 +99,5 @@
         app:layout_constraintBottom_toTopOf="@+id/HaraTitle"
         app:layout_constraintEnd_toStartOf="@+id/guidelineHorizontalRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalLeft" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/google_g"
-        app:layout_constraintStart_toStartOf="@+id/guidelineHorizontalLeft"
-        app:layout_constraintTop_toTopOf="@+id/guidelineVertical" />
 
 </android.support.constraint.ConstraintLayout>

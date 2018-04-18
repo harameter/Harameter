@@ -89,7 +89,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/colorPrimaryLight"
-        android:popupBackground="#FFFFFF"
+        android:popupBackground="@color/colorHighlight"
         android:elevation="4dp"
         app:layout_constraintBottom_toTopOf="@+id/message"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -139,6 +139,7 @@
         android:fontFamily="@font/robotolight"
         android:text="Harameter"
         android:textSize="24sp"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

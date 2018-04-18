@@ -29,7 +29,6 @@
         android:id="@+id/message"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
         android:fontFamily="@font/robotolight"
         android:text="And Breath..."
         android:textAllCaps="false"
@@ -37,8 +36,9 @@
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/activityinfo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/activityinfo"
@@ -50,6 +50,7 @@
         android:text="TextView"
         android:textAllCaps="false"
         android:textSize="24sp"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/guidelineVertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
