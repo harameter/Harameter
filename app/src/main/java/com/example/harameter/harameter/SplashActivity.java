@@ -78,6 +78,11 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        //disabled for splash
+    }
+
     public void onClickNextButton(View view){
         this.finish();
     }

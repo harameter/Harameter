@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
@@ -67,11 +68,10 @@ public class BluetoothActivity extends Activity {
     private BluetoothSocket socket;
     private OutputStream outputStream;
     private InputStream inputStream;
-    Button startButton, stopButton;
-    TextView textView;
+    Button startButton, stopButton, settingsclickable;
+    Switch advanced2;
     //EditText editText;
-    TextView circleImage;
-    TextView info;
+    TextView textView, info, circleImage, drop2;
     String difficulty, method, email;
     int accuracy, streak;
     boolean deviceConnected=false;
@@ -120,6 +120,13 @@ public class BluetoothActivity extends Activity {
         info.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         accuracy = 27;
         streak = 13;
+        settingsclickable = findViewById(R.id.settingsclickable);
+        drop2 = findViewById(R.id.drop2);
+        advanced2 = findViewById(R.id.advanced2);
+        settingsclickable.setVisibility(View.VISIBLE);
+        if (difficulty.equals("Advanced")) {
+        }
+
         setUiEnabled(false);
 
         graph = findViewById(R.id.graph);
@@ -374,6 +381,17 @@ public class BluetoothActivity extends Activity {
         stopIntent.putExtra("ACCURACY", Integer.toString(accuracy));
         stopIntent.putExtra("STREAK", Integer.toString(streak));
         startActivity(stopIntent);
+    }
+
+    public void onClickSettings(View view) {
+        if (drop2.getVisibility() == View.INVISIBLE) {
+            drop2.setVisibility(View.VISIBLE);
+            advanced2.setVisibility(View.VISIBLE);
+        }
+        else if (drop2.getVisibility() == View.VISIBLE) {
+            drop2.setVisibility(View.INVISIBLE);
+            advanced2.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void removeGraph() {

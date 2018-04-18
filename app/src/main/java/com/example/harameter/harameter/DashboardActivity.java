@@ -28,22 +28,38 @@ public class DashboardActivity extends Activity {
 
     private DatabaseReference haraDB;
     private Spinner select;
-    private String name, email;
+    private String name, email, date;
+    private int value;
+    private Button demo;
+    private TextView demo1, demomessage, tintfill;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_dashboard);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd");
+        date = dateFormat.format(calendar.getTime());
         haraDB = FirebaseDatabase.getInstance().getReference();
+
         name = getIntent().getStringExtra("GOOGLE_NAME");
         if (!name.equals("Demo")) email = getIntent().getStringExtra("GOOGLE_EMAIL");
+        else {
+            demo = findViewById(R.id.demo);
+            demo1 = findViewById(R.id.demo1);
+            demomessage = findViewById(R.id.demomessage);
+            tintfill = findViewById(R.id.tintfill);
+            demomessage.setText("Sign in with Google to enjoy Harameter");
+            demo.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            demo1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            demomessage.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            demo.setVisibility(View.VISIBLE);
+            demo1.setVisibility(View.VISIBLE);
+        }
 
         //Date TextView
         TextView dateView = findViewById(R.id.date);
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd");
-        String date = dateFormat.format(calendar.getTime());
         SpannableStringBuilder dateSpannable = new SpannableStringBuilder("Today\n" +
                 date);
         dateSpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
@@ -58,7 +74,7 @@ public class DashboardActivity extends Activity {
         streakView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
         //Accuracy TextView
-        int value = 74;
+        value = 74;
         String accuracy = Integer.toString(value);
         SpannableStringBuilder accuracySpannable;
         if (name.equals("Demo")) {
@@ -153,6 +169,19 @@ public class DashboardActivity extends Activity {
     public void onClickSignOutButton(View view){
         Intent signoutIntent = new Intent(this, LoginActivity.class);
         startActivity(signoutIntent);
+    }
+
+    public void onClickDemo(View view){
+        if (demo1.getVisibility() == View.VISIBLE) {
+            demo1.setVisibility(View.INVISIBLE);
+            demomessage.setVisibility(View.VISIBLE);
+            tintfill.setVisibility(View.VISIBLE);
+        }
+        else if (demo1.getVisibility() == View.INVISIBLE) {
+            demomessage.setVisibility(View.INVISIBLE);
+            demo1.setVisibility(View.VISIBLE);
+            tintfill.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void onClickHaraButton(View view){
