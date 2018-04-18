@@ -89,8 +89,9 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/colorPrimaryLight"
-        android:popupBackground="@color/colorHighlight"
+        android:popupBackground="@color/colorPrimaryLight"
         android:elevation="4dp"
+        android:popupElevation="4dp"
         app:layout_constraintBottom_toTopOf="@+id/message"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -205,11 +206,44 @@
         app:layout_constraintStart_toStartOf="@+id/fill2"
         app:layout_constraintTop_toTopOf="@+id/fill2" />
 
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/drop"
+        android:fontFamily="@font/robotolight"
+        android:text="Name"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fill" />
+
+    <Button
+        android:id="@+id/demo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/robotolight"
+        android:onClick="onClickDemo"
+        android:textAllCaps="false"
+        android:textSize="32sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/streak"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fill"
+        app:layout_constraintVertical_bias="0.0" />
+
     <Button
         android:id="@+id/signout"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/signout"
         android:elevation="16dp"
         android:fontFamily="@font/robotomedium"
@@ -222,19 +256,44 @@
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <TextView
-        android:id="@+id/username"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginTop="75dp"
-        android:background="@drawable/drop"
+        android:id="@+id/demo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/robotolight"
-        android:text="Name"
+        android:text="Demo Mode"
         android:textAllCaps="false"
-        android:textColor="#000000"
+        android:textSize="32sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/streak"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/demo"
+        app:layout_constraintTop_toTopOf="@+id/demo" />
+
+    <TextView
+        android:id="@+id/tintfill"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#0D000000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/demo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="@+id/DashboardTitle"
+        app:layout_constraintTop_toTopOf="@+id/demo" />
+
+    <TextView
+        android:id="@+id/demomessage"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:fontFamily="@font/robotolight"
+        android:textAllCaps="false"
         android:textSize="20sp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/streak"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fill" />
+
 
 </android.support.constraint.ConstraintLayout>
