@@ -28,6 +28,7 @@ public class DashboardActivity extends Activity {
 
     private DatabaseReference haraDB;
     private Spinner select;
+    private String name, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class DashboardActivity extends Activity {
         FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_dashboard);
         haraDB = FirebaseDatabase.getInstance().getReference();
+        name = getIntent().getStringExtra("GOOGLE_NAME");
+        if (!name.equals("Demo")) email = getIntent().getStringExtra("GOOGLE_EMAIL");
 
         //Date TextView
         TextView dateView = findViewById(R.id.date);
@@ -49,48 +52,56 @@ public class DashboardActivity extends Activity {
         dateView.setText(dateSpannable);
         dateView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
-        //Accuracy TextView
         TextView accuracyView = findViewById(R.id.accuracy);
+        accuracyView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        TextView streakView = findViewById(R.id.streak);
+        streakView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+
+        //Accuracy TextView
         int value = 74;
         String accuracy = Integer.toString(value);
-        SpannableStringBuilder accuracySpannable = new SpannableStringBuilder("Accuracy\n" +
-                accuracy + "%");
-        accuracySpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                (accuracySpannable.length() - (accuracy.length() + 1)),
-                accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        if (value >= 70) {
-            accuracySpannable.setSpan(new ForegroundColorSpan(0XFF81c784),
-                    (accuracySpannable.length() - (accuracy.length() + 1)),
+        SpannableStringBuilder accuracySpannable;
+        if (name.equals("Demo")) {
+            accuracy = "--";
+            accuracySpannable = new SpannableStringBuilder("Accuracy\n" + accuracy);
+            accuracySpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                    (accuracySpannable.length() - accuracy.length()),
                     accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             accuracyView.setText(accuracySpannable);
-            accuracyView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        }
-        else if (value >=40) {
-            accuracySpannable.setSpan(new ForegroundColorSpan(0XFFffd54f),
-                    (accuracySpannable.length() - (accuracy.length() + 1)),
-                    accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            accuracyView.setText(accuracySpannable);
-            accuracyView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         }
         else {
-            accuracySpannable.setSpan(new ForegroundColorSpan(0XFFe57373),
+            accuracySpannable = new SpannableStringBuilder("Accuracy\n" +
+                    accuracy + "%");
+            accuracySpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
                     (accuracySpannable.length() - (accuracy.length() + 1)),
                     accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            accuracyView.setText(accuracySpannable);
-            accuracyView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            if (value >= 70) {
+                accuracySpannable.setSpan(new ForegroundColorSpan(0XFF81c784),
+                        (accuracySpannable.length() - (accuracy.length() + 1)),
+                        accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                accuracyView.setText(accuracySpannable);
+            } else if (value >= 40) {
+                accuracySpannable.setSpan(new ForegroundColorSpan(0XFFffd54f),
+                        (accuracySpannable.length() - (accuracy.length() + 1)),
+                        accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                accuracyView.setText(accuracySpannable);
+            } else {
+                accuracySpannable.setSpan(new ForegroundColorSpan(0XFFe57373),
+                        (accuracySpannable.length() - (accuracy.length() + 1)),
+                        accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                accuracyView.setText(accuracySpannable);
+            }
         }
 
         //Streak
-        TextView streakView = findViewById(R.id.streak);
         value = 13;
         String streak = Integer.toString(value);
+        if (name.equals("Demo")) streak = "--";
         SpannableStringBuilder streakSpannable = new SpannableStringBuilder("Streak\n" + streak);
         streakSpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
                 (streakSpannable.length() - streak.length()),
                 streakSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
         streakView.setText(streakSpannable);
-        streakView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
         //Difficulty Select Spinner
         String[] difficulty = new String[] {"Beginner", "Advanced"};
@@ -106,7 +117,6 @@ public class DashboardActivity extends Activity {
         TextView title = findViewById(R.id.DashboardTitle);
         title.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         Button initial = findViewById(R.id.initial);
-        String name = getIntent().getStringExtra("GOOGLE_NAME");
         initial.setText(name.substring(0,1));
         Button signout = findViewById(R.id.signout);
         TextView username = findViewById(R.id.username);
@@ -149,12 +159,16 @@ public class DashboardActivity extends Activity {
         Intent haraIntent = new Intent(this, BluetoothActivity.class);
         haraIntent.putExtra("DIFFICULTY", select.getSelectedItem().toString());
         haraIntent.putExtra("METHOD", "Hara");
+        if (!name.equals("Demo")) haraIntent.putExtra("GOOGLE_EMAIL", email);
+        else haraIntent.putExtra("GOOGLE_EMAIL", "Demo");
         startActivity(haraIntent);
     }
     public void onClickAbdominalButton(View view){
         Intent abdIntent = new Intent(this, BluetoothActivity.class);
         abdIntent.putExtra("DIFFICULTY", select.getSelectedItem().toString());
         abdIntent.putExtra("METHOD", "Abdominal");
+        if (!name.equals("Demo")) abdIntent.putExtra("GOOGLE_EMAIL", email);
+        else abdIntent.putExtra("GOOGLE_EMAIL", "Demo");
         startActivity(abdIntent);
     }
 
