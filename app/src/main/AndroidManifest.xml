@@ -16,7 +16,8 @@
             android:label="DashboardActivity" />
         <activity
             android:name=".BluetoothActivity"
-            android:label="BluetoothActivity" />
+            android:label="BluetoothActivity"
+            android:noHistory="true" />
         <activity
             android:name=".LoginActivity"
             android:label="Harameter">

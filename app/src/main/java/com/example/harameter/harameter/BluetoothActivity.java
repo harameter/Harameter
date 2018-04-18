@@ -72,6 +72,8 @@ public class BluetoothActivity extends Activity {
     //EditText editText;
     TextView circleImage;
     TextView info;
+    String difficulty, method;
+    int accuracy, streak;
     boolean deviceConnected=false;
     //Thread thread;
     byte buffer[];
@@ -109,12 +111,14 @@ public class BluetoothActivity extends Activity {
         stopButton = findViewById(R.id.buttonStop);
         textView = findViewById(R.id.btTextView);
         info = findViewById(R.id.info);
-        String difficulty = getIntent().getStringExtra("DIFFICULTY");
-        String method = getIntent().getStringExtra("METHOD");
+        difficulty = getIntent().getStringExtra("DIFFICULTY");
+        method = getIntent().getStringExtra("METHOD");
         textView.setEnabled(true);
         textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         info.setText(method + ", " + difficulty);
         info.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        accuracy = 52;
+        streak = 13;
         setUiEnabled(false);
 
         graph = findViewById(R.id.graph);
@@ -138,7 +142,7 @@ public class BluetoothActivity extends Activity {
     public void setUiEnabled(boolean bool)
     {
         startButton.setEnabled(!bool);
-        stopButton.setEnabled(bool);
+        //stopButton.setEnabled(bool);
 
     }
 
@@ -240,7 +244,7 @@ public class BluetoothActivity extends Activity {
 
                 //add series to graph
                 beginListenForData();
-                textView.setText("\nConnection Opened!\n");
+                textView.setText("Connection Opened!");
             }
         }
     }
@@ -253,7 +257,7 @@ public class BluetoothActivity extends Activity {
 
     void beginListenForData()
     {
-        textView.setText("Listen for data\n");
+        textView.setText("Listen for data");
         //final Handler handler = new Handler();
         stopThread = false;
         buffer = new byte[1024];
@@ -337,7 +341,7 @@ public class BluetoothActivity extends Activity {
                     catch (IOException ex)
                     {
                         stopThread = true;
-                        textView.setText("Stop thread\n");
+                        textView.setText("Stop thread");
                     }
                 }
             }
@@ -349,20 +353,24 @@ public class BluetoothActivity extends Activity {
 
     public void onClickStop(View view) throws IOException {
         //-------------------------NOT JOSH----------------------------
-        stopThread = true;
+        /*stopThread = true;
         outputStream.close();
         inputStream.close();
         socket.close();
         setUiEnabled(false);
         hasCalibrated = false;
         deviceConnected=false;
-        removeGraph();
+        removeGraph();*/
 
         //----------------------------JOSH-----------------------------------
 
-        /*textView.setText("\nConnection Closed!\n");
+        textView.setText("Connection Closed!");
         Intent stopIntent = new Intent(this, SplashActivity.class);
-        startActivity(stopIntent);*/
+        stopIntent.putExtra("DIFFICULTY", difficulty);
+        stopIntent.putExtra("METHOD", method);
+        stopIntent.putExtra("ACCURACY", Integer.toString(accuracy));
+        stopIntent.putExtra("STREAK", Integer.toString(streak));
+        startActivity(stopIntent);
     }
 
     public void removeGraph() {
