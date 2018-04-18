@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
@@ -67,12 +68,11 @@ public class BluetoothActivity extends Activity {
     private BluetoothSocket socket;
     private OutputStream outputStream;
     private InputStream inputStream;
-    Button startButton, stopButton;
-    TextView textView;
+    Button startButton, stopButton, settingsclickable;
+    Switch advanced2;
     //EditText editText;
-    TextView circleImage;
-    TextView info;
-    String difficulty, method;
+    TextView textView, info, circleImage, drop2;
+    String difficulty, method, email;
     int accuracy, streak;
     boolean deviceConnected=false;
     //Thread thread;
@@ -113,12 +113,20 @@ public class BluetoothActivity extends Activity {
         info = findViewById(R.id.info);
         difficulty = getIntent().getStringExtra("DIFFICULTY");
         method = getIntent().getStringExtra("METHOD");
+        email = getIntent().getStringExtra("GOOGLE_EMAIL");
         textView.setEnabled(true);
         textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         info.setText(method + ", " + difficulty);
         info.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        accuracy = 52;
+        accuracy = 27;
         streak = 13;
+        settingsclickable = findViewById(R.id.settingsclickable);
+        drop2 = findViewById(R.id.drop2);
+        advanced2 = findViewById(R.id.advanced2);
+        settingsclickable.setVisibility(View.VISIBLE);
+        if (difficulty.equals("Advanced")) {
+        }
+
         setUiEnabled(false);
 
         graph = findViewById(R.id.graph);
@@ -142,6 +150,7 @@ public class BluetoothActivity extends Activity {
     public void setUiEnabled(boolean bool)
     {
         startButton.setEnabled(!bool);
+        //----------NOT JOSH (Uncomment for Bluetooth testing)----------
         //stopButton.setEnabled(bool);
 
     }
@@ -150,7 +159,7 @@ public class BluetoothActivity extends Activity {
 
         isCalibrating = true;
         startTime = System.nanoTime();
-        doUpdate("Calibrating for 15 seconds. Please expand and contract abdomen to your greatest range");
+        doUpdate("Calibrating for 15 seconds.\nPlease expand and contract abdomen to your greatest range");
         circleImage.setVisibility(view.VISIBLE);
     }
 
@@ -159,7 +168,7 @@ public class BluetoothActivity extends Activity {
         boolean found=false;
         BluetoothAdapter bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
-            Toast.makeText(getApplicationContext(),"Device doesnt Support Bluetooth",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Device doesn't support Bluetooth",Toast.LENGTH_SHORT).show();
         }
         if(!bluetoothAdapter.isEnabled())
         {
@@ -174,7 +183,7 @@ public class BluetoothActivity extends Activity {
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
         if(bondedDevices.isEmpty())
         {
-            Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Please pair the device first",Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -244,7 +253,7 @@ public class BluetoothActivity extends Activity {
 
                 //add series to graph
                 beginListenForData();
-                textView.setText("Connection Opened!");
+                textView.setText("Connection opened!");
             }
         }
     }
@@ -283,7 +292,7 @@ public class BluetoothActivity extends Activity {
                                     try {
                                         long timePassed = System.nanoTime() - startTime;
                                         if(!isCalibrating && !hasCalibrated) {
-                                            doUpdate("Connection Found. Please Calibrate");
+                                            doUpdate("Connection found. Please calibrate");
                                             //doUpdate(string);
                                             //isCalibrating = false;
                                         }
@@ -303,7 +312,7 @@ public class BluetoothActivity extends Activity {
                                                 isCalibrating = false;
                                                 hasCalibrated = true;
                                                 circleImage.setVisibility(View.INVISIBLE);
-                                                doUpdate("Follow Aspirational Curve");
+                                                doUpdate("Follow aspirational curve");
                                                 createGraph();
                                             }
                                             //addEntry(number, 0);
@@ -352,7 +361,7 @@ public class BluetoothActivity extends Activity {
 
 
     public void onClickStop(View view) throws IOException {
-        //-------------------------NOT JOSH----------------------------
+        //----------NOT JOSH (Uncomment for Bluetooth testing)----------
         /*stopThread = true;
         outputStream.close();
         inputStream.close();
@@ -362,15 +371,27 @@ public class BluetoothActivity extends Activity {
         deviceConnected=false;
         removeGraph();*/
 
-        //----------------------------JOSH-----------------------------------
+        //---------------------------JOSH-------------------------------
 
-        textView.setText("Connection Closed!");
+        textView.setText("Connection closed!");
         Intent stopIntent = new Intent(this, SplashActivity.class);
         stopIntent.putExtra("DIFFICULTY", difficulty);
         stopIntent.putExtra("METHOD", method);
+        stopIntent.putExtra("GOOGLE_EMAIL", email);
         stopIntent.putExtra("ACCURACY", Integer.toString(accuracy));
         stopIntent.putExtra("STREAK", Integer.toString(streak));
         startActivity(stopIntent);
+    }
+
+    public void onClickSettings(View view) {
+        if (drop2.getVisibility() == View.INVISIBLE) {
+            drop2.setVisibility(View.VISIBLE);
+            advanced2.setVisibility(View.VISIBLE);
+        }
+        else if (drop2.getVisibility() == View.VISIBLE) {
+            drop2.setVisibility(View.INVISIBLE);
+            advanced2.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void removeGraph() {

@@ -28,19 +28,38 @@ public class DashboardActivity extends Activity {
 
     private DatabaseReference haraDB;
     private Spinner select;
+    private String name, email, date;
+    private int value;
+    private Button demo;
+    private TextView demo1, demomessage, tintfill;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_dashboard);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd");
+        date = dateFormat.format(calendar.getTime());
         haraDB = FirebaseDatabase.getInstance().getReference();
+
+        name = getIntent().getStringExtra("GOOGLE_NAME");
+        if (!name.equals("Demo")) email = getIntent().getStringExtra("GOOGLE_EMAIL");
+        else {
+            demo = findViewById(R.id.demo);
+            demo1 = findViewById(R.id.demo1);
+            demomessage = findViewById(R.id.demomessage);
+            tintfill = findViewById(R.id.tintfill);
+            demomessage.setText("Sign in with Google to enjoy Harameter");
+            demo.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            demo1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            demomessage.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            demo.setVisibility(View.VISIBLE);
+            demo1.setVisibility(View.VISIBLE);
+        }
 
         //Date TextView
         TextView dateView = findViewById(R.id.date);
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("M/dd");
-        String date = dateFormat.format(calendar.getTime());
         SpannableStringBuilder dateSpannable = new SpannableStringBuilder("Today\n" +
                 date);
         dateSpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
@@ -49,48 +68,56 @@ public class DashboardActivity extends Activity {
         dateView.setText(dateSpannable);
         dateView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
-        //Accuracy TextView
         TextView accuracyView = findViewById(R.id.accuracy);
-        int value = 74;
+        accuracyView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        TextView streakView = findViewById(R.id.streak);
+        streakView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+
+        //Accuracy TextView
+        value = 74;
         String accuracy = Integer.toString(value);
-        SpannableStringBuilder accuracySpannable = new SpannableStringBuilder("Accuracy\n" +
-                accuracy + "%");
-        accuracySpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-                (accuracySpannable.length() - (accuracy.length() + 1)),
-                accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        if (value >= 70) {
-            accuracySpannable.setSpan(new ForegroundColorSpan(0XFF81c784),
-                    (accuracySpannable.length() - (accuracy.length() + 1)),
+        SpannableStringBuilder accuracySpannable;
+        if (name.equals("Demo")) {
+            accuracy = "--";
+            accuracySpannable = new SpannableStringBuilder("Accuracy\n" + accuracy);
+            accuracySpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                    (accuracySpannable.length() - accuracy.length()),
                     accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             accuracyView.setText(accuracySpannable);
-            accuracyView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        }
-        else if (value >=40) {
-            accuracySpannable.setSpan(new ForegroundColorSpan(0XFFffd54f),
-                    (accuracySpannable.length() - (accuracy.length() + 1)),
-                    accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            accuracyView.setText(accuracySpannable);
-            accuracyView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         }
         else {
-            accuracySpannable.setSpan(new ForegroundColorSpan(0XFFe57373),
+            accuracySpannable = new SpannableStringBuilder("Accuracy\n" +
+                    accuracy + "%");
+            accuracySpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
                     (accuracySpannable.length() - (accuracy.length() + 1)),
                     accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            accuracyView.setText(accuracySpannable);
-            accuracyView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+            if (value >= 70) {
+                accuracySpannable.setSpan(new ForegroundColorSpan(0XFF81c784),
+                        (accuracySpannable.length() - (accuracy.length() + 1)),
+                        accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                accuracyView.setText(accuracySpannable);
+            } else if (value >= 40) {
+                accuracySpannable.setSpan(new ForegroundColorSpan(0XFFffd54f),
+                        (accuracySpannable.length() - (accuracy.length() + 1)),
+                        accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                accuracyView.setText(accuracySpannable);
+            } else {
+                accuracySpannable.setSpan(new ForegroundColorSpan(0XFFe57373),
+                        (accuracySpannable.length() - (accuracy.length() + 1)),
+                        accuracySpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                accuracyView.setText(accuracySpannable);
+            }
         }
 
         //Streak
-        TextView streakView = findViewById(R.id.streak);
         value = 13;
         String streak = Integer.toString(value);
+        if (name.equals("Demo")) streak = "--";
         SpannableStringBuilder streakSpannable = new SpannableStringBuilder("Streak\n" + streak);
         streakSpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
                 (streakSpannable.length() - streak.length()),
                 streakSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
         streakView.setText(streakSpannable);
-        streakView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
         //Difficulty Select Spinner
         String[] difficulty = new String[] {"Beginner", "Advanced"};
@@ -106,7 +133,6 @@ public class DashboardActivity extends Activity {
         TextView title = findViewById(R.id.DashboardTitle);
         title.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         Button initial = findViewById(R.id.initial);
-        String name = getIntent().getStringExtra("GOOGLE_NAME");
         initial.setText(name.substring(0,1));
         Button signout = findViewById(R.id.signout);
         TextView username = findViewById(R.id.username);
@@ -145,16 +171,33 @@ public class DashboardActivity extends Activity {
         startActivity(signoutIntent);
     }
 
+    public void onClickDemo(View view){
+        if (demo1.getVisibility() == View.VISIBLE) {
+            demo1.setVisibility(View.INVISIBLE);
+            demomessage.setVisibility(View.VISIBLE);
+            tintfill.setVisibility(View.VISIBLE);
+        }
+        else if (demo1.getVisibility() == View.INVISIBLE) {
+            demomessage.setVisibility(View.INVISIBLE);
+            demo1.setVisibility(View.VISIBLE);
+            tintfill.setVisibility(View.INVISIBLE);
+        }
+    }
+
     public void onClickHaraButton(View view){
         Intent haraIntent = new Intent(this, BluetoothActivity.class);
         haraIntent.putExtra("DIFFICULTY", select.getSelectedItem().toString());
         haraIntent.putExtra("METHOD", "Hara");
+        if (!name.equals("Demo")) haraIntent.putExtra("GOOGLE_EMAIL", email);
+        else haraIntent.putExtra("GOOGLE_EMAIL", "Demo");
         startActivity(haraIntent);
     }
     public void onClickAbdominalButton(View view){
         Intent abdIntent = new Intent(this, BluetoothActivity.class);
         abdIntent.putExtra("DIFFICULTY", select.getSelectedItem().toString());
         abdIntent.putExtra("METHOD", "Abdominal");
+        if (!name.equals("Demo")) abdIntent.putExtra("GOOGLE_EMAIL", email);
+        else abdIntent.putExtra("GOOGLE_EMAIL", "Demo");
         startActivity(abdIntent);
     }
 

@@ -14,6 +14,8 @@ import android.view.Gravity;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,7 @@ public class SplashActivity extends AppCompatActivity {
 
         String difficulty = getIntent().getStringExtra("DIFFICULTY");
         String method = getIntent().getStringExtra("METHOD");
+        email = getIntent().getStringExtra("GOOGLE_EMAIL");
         String accuracyValue = getIntent().getStringExtra("ACCURACY");
         String streakValue = getIntent().getStringExtra("STREAK");
 
@@ -73,6 +76,11 @@ public class SplashActivity extends AppCompatActivity {
 
         //write data
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //disabled for splash
     }
 
     public void onClickNextButton(View view){

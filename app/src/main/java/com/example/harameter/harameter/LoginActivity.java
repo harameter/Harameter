@@ -161,8 +161,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             String name = user.getDisplayName();
+            String email = user.getEmail();
             Intent loginIntent = new Intent(this, DashboardActivity.class);
             loginIntent.putExtra("GOOGLE_NAME", name);
+            loginIntent.putExtra("GOOGLE_EMAIL", email);
             startActivity(loginIntent);
         } else {
         }
