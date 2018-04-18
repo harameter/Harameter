@@ -31,7 +31,7 @@ public class DashboardActivity extends Activity {
     private String name, email, date;
     private int value;
     private Button demo;
-    private TextView demo1, demomessage, tintfill;
+    private TextView demo1, demomessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,6 @@ public class DashboardActivity extends Activity {
             demo = findViewById(R.id.demo);
             demo1 = findViewById(R.id.demo1);
             demomessage = findViewById(R.id.demomessage);
-            tintfill = findViewById(R.id.tintfill);
             demomessage.setText("Sign in with Google to enjoy Harameter");
             demo.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
             demo1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -175,12 +174,10 @@ public class DashboardActivity extends Activity {
         if (demo1.getVisibility() == View.VISIBLE) {
             demo1.setVisibility(View.INVISIBLE);
             demomessage.setVisibility(View.VISIBLE);
-            tintfill.setVisibility(View.VISIBLE);
         }
         else if (demo1.getVisibility() == View.INVISIBLE) {
             demomessage.setVisibility(View.INVISIBLE);
             demo1.setVisibility(View.VISIBLE);
-            tintfill.setVisibility(View.INVISIBLE);
         }
     }
 
