@@ -69,9 +69,8 @@ public class BluetoothActivity extends Activity {
     private OutputStream outputStream;
     private InputStream inputStream;
     Button startButton, stopButton, settingsclickable;
-    Switch advanced2;
     //EditText editText;
-    TextView textView, info, circleImage, drop2;
+    TextView textView, info, circleImage, mode;
     String difficulty, method, email;
     int accuracy, streak;
     boolean deviceConnected=false;
@@ -111,6 +110,8 @@ public class BluetoothActivity extends Activity {
         stopButton = findViewById(R.id.buttonStop);
         textView = findViewById(R.id.btTextView);
         info = findViewById(R.id.info);
+        settingsclickable = findViewById(R.id.settingsclickable);
+        mode = findViewById(R.id.mode);
         difficulty = getIntent().getStringExtra("DIFFICULTY");
         method = getIntent().getStringExtra("METHOD");
         email = getIntent().getStringExtra("GOOGLE_EMAIL");
@@ -120,12 +121,9 @@ public class BluetoothActivity extends Activity {
         info.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         accuracy = 27;
         streak = 13;
-        settingsclickable = findViewById(R.id.settingsclickable);
-        drop2 = findViewById(R.id.drop2);
-        advanced2 = findViewById(R.id.advanced2);
         settingsclickable.setVisibility(View.VISIBLE);
-        if (difficulty.equals("Advanced")) {
-        }
+        mode.setText("Game");
+        mode.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
         setUiEnabled(false);
 
@@ -151,7 +149,7 @@ public class BluetoothActivity extends Activity {
     {
         startButton.setEnabled(!bool);
         //----------NOT JOSH (Uncomment for Bluetooth testing)----------
-        //stopButton.setEnabled(bool);
+        stopButton.setEnabled(bool);
 
     }
 
@@ -362,18 +360,18 @@ public class BluetoothActivity extends Activity {
 
     public void onClickStop(View view) throws IOException {
         //----------NOT JOSH (Uncomment for Bluetooth testing)----------
-        /*stopThread = true;
+        stopThread = true;
         outputStream.close();
         inputStream.close();
         socket.close();
         setUiEnabled(false);
         hasCalibrated = false;
         deviceConnected=false;
-        removeGraph();*/
+        removeGraph();
+        textView.setText("Connection closed!");
 
         //---------------------------JOSH-------------------------------
 
-        textView.setText("Connection closed!");
         Intent stopIntent = new Intent(this, SplashActivity.class);
         stopIntent.putExtra("DIFFICULTY", difficulty);
         stopIntent.putExtra("METHOD", method);
@@ -384,13 +382,13 @@ public class BluetoothActivity extends Activity {
     }
 
     public void onClickSettings(View view) {
-        if (drop2.getVisibility() == View.INVISIBLE) {
-            drop2.setVisibility(View.VISIBLE);
-            advanced2.setVisibility(View.VISIBLE);
+        if (mode.getText().equals("Game")) {
+            mode.setText("Zen");
+            //adjust/set view setting according to Zen spec
         }
-        else if (drop2.getVisibility() == View.VISIBLE) {
-            drop2.setVisibility(View.INVISIBLE);
-            advanced2.setVisibility(View.INVISIBLE);
+        else if (mode.getText().equals("Zen")) {
+            mode.setText("Game");
+            //adjust/set view setting according to Game spec
         }
     }
 

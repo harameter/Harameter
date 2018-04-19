@@ -49,7 +49,7 @@ public class DashboardActivity extends Activity {
             demo = findViewById(R.id.demo);
             demo1 = findViewById(R.id.demo1);
             demomessage = findViewById(R.id.demomessage);
-            demomessage.setText("Sign in with Google to enjoy Harameter");
+            demomessage.setText("Sign in with Google to track your results");
             demo.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
             demo1.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
             demomessage.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
@@ -136,6 +136,8 @@ public class DashboardActivity extends Activity {
         Button signout = findViewById(R.id.signout);
         TextView username = findViewById(R.id.username);
         username.setText(name);
+        TextView haraButton = findViewById(R.id.HaraButton);
+        TextView abdominalButton = findViewById(R.id.AbdominalButton);
         if (name.equals("Demo")) {
             initial.setText("H");
             username.setText("Demo");
@@ -145,6 +147,8 @@ public class DashboardActivity extends Activity {
         initial.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         signout.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         username.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        haraButton.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+        abdominalButton.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
     }
 
     @Override

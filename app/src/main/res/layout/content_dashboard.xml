@@ -8,7 +8,7 @@
     tools:showIn="@layout/activity_dashboard"
     tools:ignore="ContentDescription">
 
-    <Button
+    <TextView
         android:id="@+id/HaraButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -17,15 +17,15 @@
         android:background="@color/colorPrimaryLight"
         android:elevation="4dp"
         android:fontFamily="@font/robotolight"
-        android:onClick="onClickHaraButton"
         android:text="Hara "
         android:textAllCaps="false"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/HaraInfo"
         app:layout_constraintEnd_toStartOf="@+id/AbdominalButton"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <TextView
         android:id="@+id/AbdominalButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -34,10 +34,10 @@
         android:background="@color/colorPrimaryLight"
         android:elevation="4dp"
         android:fontFamily="@font/robotolight"
-        android:onClick="onClickAbdominalButton"
         android:text="Abdominal"
         android:textAllCaps="false"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/AbdominalInfo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/HaraButton" />
@@ -103,7 +103,7 @@
         android:background="@color/colorHighlight"
         android:fontFamily="@font/robotolight"
         android:text="Select a Breathing Method"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/HaraButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -246,7 +246,7 @@
         android:layout_marginEnd="30dp"
         android:background="@drawable/signout"
         android:elevation="16dp"
-        android:fontFamily="@font/robotomedium"
+        android:fontFamily="@font/robotoregular"
         android:onClick="onClickSignOutButton"
         android:text="Sign Out"
         android:textAllCaps="false"
@@ -282,6 +282,29 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fill" />
+
+    <Button
+        android:id="@+id/clickableHara"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:onClick="onClickHaraButton"
+        app:layout_constraintBottom_toBottomOf="@+id/haraImage"
+        app:layout_constraintEnd_toEndOf="@+id/HaraButton"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/HaraButton"
+        app:layout_constraintTop_toTopOf="@+id/HaraButton" />
+
+    <Button
+        android:id="@+id/clickableAbdominal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:onClick="onClickAbdominalButton"
+        app:layout_constraintBottom_toBottomOf="@+id/AbdominalInfo"
+        app:layout_constraintEnd_toEndOf="@+id/AbdominalButton"
+        app:layout_constraintStart_toStartOf="@+id/AbdominalButton"
+        app:layout_constraintTop_toTopOf="@+id/AbdominalButton" />
 
 
 </android.support.constraint.ConstraintLayout>
