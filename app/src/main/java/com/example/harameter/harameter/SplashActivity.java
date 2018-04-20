@@ -65,7 +65,7 @@ public class SplashActivity extends AppCompatActivity {
             accuracy.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         }
 
-        SpannableStringBuilder streakSpannable = new SpannableStringBuilder("Streak\n" + streakValue);
+        SpannableStringBuilder streakSpannable = new SpannableStringBuilder("Streak\n" + streakValue + " sec");
         streakSpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
                 (streakSpannable.length() - streakValue.length()),
                 streakSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -70,32 +70,53 @@ public class BluetoothActivity extends Activity {
     private InputStream inputStream;
     Button startButton, stopButton, settingsclickable;
     //EditText editText;
+    double thresh = .5;
+    double streakTemp = 0;
     TextView textView, info, circleImage, mode;
     String difficulty, method, email;
     int accuracy, streak;
+    double streakMax;
+    double recentFail;
     boolean deviceConnected=false;
     //Thread thread;
     byte buffer[];
     //int bufferPosition;
     boolean stopThread;
     //ConnectedThread mConnectedThread;
-
+    private double accuracySum;
+    private double pointsSum;
     private int series1lastX = 0;
     private int series2lastX = 0;
-    private long calibrateTime = 15000000000l; //nanoseconds
+    private long calibrateTime = 5000000000l; //nanoseconds
     private long startTime = 0;
     private boolean isCalibrating = false;
     private boolean hasCalibrated = false;
     double maxBreath = 0.0;
     double minBreath = 5.0;
-    double amplitude = 5.0;
-    double period = 6.0; //In seconds
-    double frequency = 1/period;
-    double angularFrequency = Math.PI * 2 * frequency;
+
+    double amplitude = 0.0;
+    double angularFrequency = 0.0;
+
+    double abdBeginnerAmplitude = 2.5;
+    double beginnerPeriod = 4.0; //In seconds
+    double beginnerFrequency = 1/beginnerPeriod;
+    double beginnerAngularFrequency = Math.PI * 2 * beginnerFrequency;
+
+    double abdAdvancedAmplitude = 5.0;
+    double advancedPeriod = 8.0; //In seconds
+    double advancedFrequency = 1/advancedPeriod;
+    double advancedAngularFrequency = Math.PI * 2 * advancedFrequency;
+
+    double haraAmplitude = 0.0;
+
     double baseline = 5.0;
+    double haraAdvancedBaseline = 8.0;
+
     double numbers [] = new double[10];
     double weights [] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
     double numbers2 [] = new double[10];
+
+    boolean isGame = true;
 
     GraphView graph;
     LineGraphSeries<DataPoint> userData;
@@ -124,6 +145,28 @@ public class BluetoothActivity extends Activity {
         settingsclickable.setVisibility(View.VISIBLE);
         mode.setText("Game");
         mode.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+
+        // set mode
+        if(method.equals(getString(R.string.haramode))) {
+            amplitude = haraAmplitude;
+            if(difficulty.equals(getString(R.string.difficultyAdvanced))) {
+                baseline = haraAdvancedBaseline;
+            }else{
+                thresh = 1.0;
+            }
+        }
+
+        if(method.equals(getString(R.string.abdominalmode))) {
+            if(difficulty.equals(getString(R.string.difficultyBeginner))) {
+                amplitude = abdBeginnerAmplitude;
+                angularFrequency = beginnerAngularFrequency;
+                thresh = 1.0;
+               // textView.setText("why am i bad");
+            } else {
+                amplitude = abdAdvancedAmplitude;
+                angularFrequency = advancedAngularFrequency;
+            }
+        }
 
         setUiEnabled(false);
 
@@ -232,11 +275,11 @@ public class BluetoothActivity extends Activity {
 
     public void createGraph() {
         userData = new LineGraphSeries<DataPoint>();
-        userData.setColor(Color.BLUE);
+        userData.setColor(R.color.colorPrimary);
         aspirationalData = new LineGraphSeries<DataPoint>();
-        aspirationalData.setColor(Color.RED);
-        graph.addSeries(userData);
+        aspirationalData.setColor(R.color.colorAccent);
         graph.addSeries(aspirationalData);
+        graph.addSeries(userData);
         graph.setVisibility(View.VISIBLE);
     }
 
@@ -257,8 +300,8 @@ public class BluetoothActivity extends Activity {
     }
 
     void addEntry(double dataNum, double aspirationNum) {
-            userData.appendData(new DataPoint(series1lastX++, dataNum), true, 100);
-            aspirationalData.appendData(new DataPoint(series2lastX++, aspirationNum), true, 100);
+        userData.appendData(new DataPoint(series1lastX++, dataNum), true, 100);
+        aspirationalData.appendData(new DataPoint(series2lastX++, aspirationNum), true, 100);
     }
 
 
@@ -299,6 +342,12 @@ public class BluetoothActivity extends Activity {
                                         //final double userVal = Math.abs(number);
                                         if(isCalibrating && !hasCalibrated) {
                                             //doUpdate("Calibration will last for 15 seconds.");
+
+                                            int n = (int) Math.abs(number);
+                                            int setter = n * 15;
+                                            circleImage.setWidth(setter);
+                                            circleImage.setHeight(setter);
+
                                             if(number > maxBreath) {
                                                 maxBreath = number;
                                             }
@@ -312,6 +361,8 @@ public class BluetoothActivity extends Activity {
                                                 circleImage.setVisibility(View.INVISIBLE);
                                                 doUpdate("Follow aspirational curve");
                                                 createGraph();
+                                                recentFail = System.nanoTime();
+
                                             }
                                             //addEntry(number, 0);
                                         }
@@ -327,6 +378,22 @@ public class BluetoothActivity extends Activity {
                                             double weightedAverageAspiration;
                                             weightedAverageAspiration = movingWindowWeightedAverage(weights, numbers2, aspiration);
                                             addEntry(weightedAverageUser, weightedAverageAspiration);
+                                            pointsSum ++;
+                                            if(weightedAverageUser < (weightedAverageAspiration + thresh) && weightedAverageUser > (weightedAverageAspiration - thresh) ){
+                                                accuracySum ++;
+                                                streakTemp = System.nanoTime() - recentFail;
+                                                if(isGame) {
+                                                    userData.setColor(0XFF81c784);
+                                                }
+                                                if (streakTemp > streakMax){
+                                                    streakMax = streakTemp;
+                                                }
+                                            }else{
+                                                recentFail = System.nanoTime();
+                                                if(isGame) {
+                                                    userData.setColor(0XFFe57373);
+                                                }
+                                            }
 
                                         }
 
@@ -369,6 +436,10 @@ public class BluetoothActivity extends Activity {
         deviceConnected=false;
         removeGraph();
         textView.setText("Connection closed!");
+        double temp = (accuracySum/pointsSum * 100);
+        accuracy = (int)temp;
+        streakMax = streakMax/1000000000;
+        streak = (int) streakMax;
 
         //---------------------------JOSH-------------------------------
 
@@ -385,10 +456,13 @@ public class BluetoothActivity extends Activity {
         if (mode.getText().equals("Game")) {
             mode.setText("Zen");
             //adjust/set view setting according to Zen spec
+            isGame = false;
+            userData.setColor(R.color.colorPrimary);
         }
         else if (mode.getText().equals("Zen")) {
             mode.setText("Game");
             //adjust/set view setting according to Game spec
+            isGame = true;
         }
     }
 
