@@ -70,17 +70,21 @@ public class BluetoothActivity extends Activity {
     private InputStream inputStream;
     Button startButton, stopButton, settingsclickable;
     //EditText editText;
+    double thresh = .5;
+    double streakTemp = 0;
     TextView textView, info, circleImage, mode;
     String difficulty, method, email;
     int accuracy, streak;
+    double streakMax;
+    double recentFail;
     boolean deviceConnected=false;
     //Thread thread;
     byte buffer[];
     //int bufferPosition;
     boolean stopThread;
     //ConnectedThread mConnectedThread;
-    private int accuracySum;
-    private int pointsSum;
+    private double accuracySum;
+    private double pointsSum;
     private int series1lastX = 0;
     private int series2lastX = 0;
     private long calibrateTime = 5000000000l; //nanoseconds
@@ -112,7 +116,7 @@ public class BluetoothActivity extends Activity {
     double weights [] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
     double numbers2 [] = new double[10];
 
-    double streakTime;
+    boolean isGame = true;
 
     GraphView graph;
     LineGraphSeries<DataPoint> userData;
@@ -147,6 +151,8 @@ public class BluetoothActivity extends Activity {
             amplitude = haraAmplitude;
             if(difficulty.equals(getString(R.string.difficultyAdvanced))) {
                 baseline = haraAdvancedBaseline;
+            }else{
+                thresh = 1.0;
             }
         }
 
@@ -154,6 +160,7 @@ public class BluetoothActivity extends Activity {
             if(difficulty.equals(getString(R.string.difficultyBeginner))) {
                 amplitude = abdBeginnerAmplitude;
                 angularFrequency = beginnerAngularFrequency;
+                thresh = 1.0;
                // textView.setText("why am i bad");
             } else {
                 amplitude = abdAdvancedAmplitude;
@@ -268,11 +275,11 @@ public class BluetoothActivity extends Activity {
 
     public void createGraph() {
         userData = new LineGraphSeries<DataPoint>();
-        userData.setColor(Color.BLUE);
+        userData.setColor(R.color.colorPrimary);
         aspirationalData = new LineGraphSeries<DataPoint>();
-        aspirationalData.setColor(Color.RED);
-        graph.addSeries(userData);
+        aspirationalData.setColor(R.color.colorAccent);
         graph.addSeries(aspirationalData);
+        graph.addSeries(userData);
         graph.setVisibility(View.VISIBLE);
     }
 
@@ -354,6 +361,8 @@ public class BluetoothActivity extends Activity {
                                                 circleImage.setVisibility(View.INVISIBLE);
                                                 doUpdate("Follow aspirational curve");
                                                 createGraph();
+                                                recentFail = System.nanoTime();
+
                                             }
                                             //addEntry(number, 0);
                                         }
@@ -370,11 +379,20 @@ public class BluetoothActivity extends Activity {
                                             weightedAverageAspiration = movingWindowWeightedAverage(weights, numbers2, aspiration);
                                             addEntry(weightedAverageUser, weightedAverageAspiration);
                                             pointsSum ++;
-                                            double thresh = .5;
-                                            if(weightedAverageUser < (weightedAverageAspiration + thresh) && weightedAverageUser > (weightedAverageAspiration -thresh) ){
+                                            if(weightedAverageUser < (weightedAverageAspiration + thresh) && weightedAverageUser > (weightedAverageAspiration - thresh) ){
                                                 accuracySum ++;
+                                                streakTemp = System.nanoTime() - recentFail;
+                                                if(isGame) {
+                                                    userData.setColor(0XFF81c784);
+                                                }
+                                                if (streakTemp > streakMax){
+                                                    streakMax = streakTemp;
+                                                }
                                             }else{
-
+                                                recentFail = System.nanoTime();
+                                                if(isGame) {
+                                                    userData.setColor(0XFFe57373);
+                                                }
                                             }
 
                                         }
@@ -418,7 +436,10 @@ public class BluetoothActivity extends Activity {
         deviceConnected=false;
         removeGraph();
         textView.setText("Connection closed!");
-        accuracy = accuracySum/pointsSum * 100;
+        double temp = (accuracySum/pointsSum * 100);
+        accuracy = (int)temp;
+        streakMax = streakMax/1000000000;
+        streak = (int) streakMax;
 
         //---------------------------JOSH-------------------------------
 
@@ -435,10 +456,13 @@ public class BluetoothActivity extends Activity {
         if (mode.getText().equals("Game")) {
             mode.setText("Zen");
             //adjust/set view setting according to Zen spec
+            isGame = false;
+            userData.setColor(R.color.colorPrimary);
         }
         else if (mode.getText().equals("Zen")) {
             mode.setText("Game");
             //adjust/set view setting according to Game spec
+            isGame = true;
         }
     }
 
