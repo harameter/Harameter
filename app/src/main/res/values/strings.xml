@@ -3,5 +3,10 @@
 
     <string name="title_activity_bluetooth">BluetoothActivity</string>
     <string name="title_activity_git_test">GitTestActivity</string>
+    <string name="haramode">Hara</string>
+    <string name="abdominalmode">Abdominal</string>
+    <string name="difficultyBeginner">Beginner</string>
+    <string name="difficultyAdvanced">Advanced</string>
+
 
 </resources>

@@ -119,7 +119,7 @@ public class DashboardActivity extends Activity {
         streakView.setText(streakSpannable);
 
         //Difficulty Select Spinner
-        String[] difficulty = new String[] {"Beginner", "Advanced"};
+        String[] difficulty = new String[] {getString(R.string.difficultyBeginner), getString(R.string.difficultyAdvanced)};
         select = findViewById(R.id.select);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.spinner, difficulty);
@@ -188,7 +188,7 @@ public class DashboardActivity extends Activity {
     public void onClickHaraButton(View view){
         Intent haraIntent = new Intent(this, BluetoothActivity.class);
         haraIntent.putExtra("DIFFICULTY", select.getSelectedItem().toString());
-        haraIntent.putExtra("METHOD", "Hara");
+        haraIntent.putExtra("METHOD", getString(R.string.haramode));
         if (!name.equals("Demo")) haraIntent.putExtra("GOOGLE_EMAIL", email);
         else haraIntent.putExtra("GOOGLE_EMAIL", "Demo");
         startActivity(haraIntent);
@@ -196,7 +196,7 @@ public class DashboardActivity extends Activity {
     public void onClickAbdominalButton(View view){
         Intent abdIntent = new Intent(this, BluetoothActivity.class);
         abdIntent.putExtra("DIFFICULTY", select.getSelectedItem().toString());
-        abdIntent.putExtra("METHOD", "Abdominal");
+        abdIntent.putExtra("METHOD", getString(R.string.abdominalmode));
         if (!name.equals("Demo")) abdIntent.putExtra("GOOGLE_EMAIL", email);
         else abdIntent.putExtra("GOOGLE_EMAIL", "Demo");
         startActivity(abdIntent);
