@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -72,7 +74,7 @@ public class BluetoothActivity extends Activity {
     //EditText editText;
     double thresh = .5;
     double streakTemp = 0;
-    TextView textView, info, circleImage, mode;
+    TextView textView, info, circleObject, mode;
     String difficulty, method, email;
     int accuracy, streak;
     double streakMax;
@@ -87,7 +89,7 @@ public class BluetoothActivity extends Activity {
     private double pointsSum;
     private int series1lastX = 0;
     private int series2lastX = 0;
-    private long calibrateTime = 5000000000l; //nanoseconds
+    private long calibrateTime = 15000000000l; //nanoseconds
     private long startTime = 0;
     private boolean isCalibrating = false;
     private boolean hasCalibrated = false;
@@ -115,18 +117,20 @@ public class BluetoothActivity extends Activity {
     double numbers [] = new double[10];
     double weights [] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
     double numbers2 [] = new double[10];
+    double calibnumbers [] = new double [10];
 
     boolean isGame = true;
 
     GraphView graph;
     LineGraphSeries<DataPoint> userData;
     LineGraphSeries<DataPoint> aspirationalData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
-        circleImage = findViewById(R.id.circle);
-        circleImage.setEnabled(true);
+        circleObject = findViewById(R.id.circle);
+        circleObject.setEnabled(true);
         startButton = findViewById(R.id.buttonStart);
         stopButton = findViewById(R.id.buttonStop);
         textView = findViewById(R.id.btTextView);
@@ -186,6 +190,19 @@ public class BluetoothActivity extends Activity {
         viewport.setMaxX(100);
         viewport.setScrollable(true);
 
+        // calibration image setup
+
+        circleObject = findViewById(R.id.circle);
+        circleObject.setVisibility(View.INVISIBLE);
+
+    }
+
+    // reference: https://stackoverflow.com/questions/28269837/android-layout-params-change-only-width-and-height
+    private void setDimensions(View view, int width, int height){
+        android.view.ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.width = width;
+        params.height = height;
+        view.setLayoutParams(params);
     }
 
     public void setUiEnabled(boolean bool)
@@ -201,7 +218,7 @@ public class BluetoothActivity extends Activity {
         isCalibrating = true;
         startTime = System.nanoTime();
         doUpdate("Calibrating for 15 seconds.\nPlease expand and contract abdomen to your greatest range");
-        circleImage.setVisibility(view.VISIBLE);
+        circleObject.setVisibility(view.VISIBLE);
     }
 
     public boolean BTinit()
@@ -333,7 +350,7 @@ public class BluetoothActivity extends Activity {
                                     try {
                                         long timePassed = System.nanoTime() - startTime;
                                         if(!isCalibrating && !hasCalibrated) {
-                                            doUpdate("Connection found. Please calibrate");
+                                            doUpdate("Connection found. Please press calibrate!");
                                             //doUpdate(string);
                                             //isCalibrating = false;
                                         }
@@ -344,9 +361,10 @@ public class BluetoothActivity extends Activity {
                                             //doUpdate("Calibration will last for 15 seconds.");
 
                                             int n = (int) Math.abs(number);
-                                            int setter = n * 15;
-                                            circleImage.setWidth(setter);
-                                            circleImage.setHeight(setter);
+                                            int setter = n * 25 + 250;
+                                            double d = movingWindowWeightedAverage(weights, calibnumbers, setter);
+                                            int c = (int)d;
+                                            setDimensions(circleObject, c, c);
 
                                             if(number > maxBreath) {
                                                 maxBreath = number;
@@ -358,7 +376,7 @@ public class BluetoothActivity extends Activity {
                                             if(timePassed > calibrateTime) {
                                                 isCalibrating = false;
                                                 hasCalibrated = true;
-                                                circleImage.setVisibility(View.INVISIBLE);
+                                                circleObject.setVisibility(View.INVISIBLE);
                                                 doUpdate("Follow aspirational curve");
                                                 createGraph();
                                                 recentFail = System.nanoTime();

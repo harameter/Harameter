@@ -45,6 +45,7 @@
         android:layout_height="75dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/robotolight"
+        android:text="Wear belt on abdomen and connect!"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +59,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -101,7 +102,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:visibility="visible"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="1.0" />
 
     <TextView
         android:id="@+id/info"
