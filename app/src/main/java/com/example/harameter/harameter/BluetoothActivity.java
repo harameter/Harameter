@@ -70,7 +70,7 @@ public class BluetoothActivity extends Activity {
     private BluetoothSocket socket;
     private OutputStream outputStream;
     private InputStream inputStream;
-    Button startButton, stopButton, settingsclickable;
+    Button startButton, stopButton, settingsclickable, calibrateButton;
     //EditText editText;
     double thresh = .5;
     double streakTemp = 0;
@@ -133,6 +133,7 @@ public class BluetoothActivity extends Activity {
         circleObject.setEnabled(true);
         startButton = findViewById(R.id.buttonStart);
         stopButton = findViewById(R.id.buttonStop);
+        calibrateButton = findViewById(R.id.calibrateButton);
         textView = findViewById(R.id.btTextView);
         info = findViewById(R.id.info);
         settingsclickable = findViewById(R.id.settingsclickable);
@@ -195,6 +196,9 @@ public class BluetoothActivity extends Activity {
         circleObject = findViewById(R.id.circle);
         circleObject.setVisibility(View.INVISIBLE);
 
+        // calibration button setup
+        calibrateButton.setEnabled(false);
+
     }
 
     // reference: https://stackoverflow.com/questions/28269837/android-layout-params-change-only-width-and-height
@@ -219,6 +223,7 @@ public class BluetoothActivity extends Activity {
         startTime = System.nanoTime();
         doUpdate("Calibrating for 15 seconds.\nPlease expand and contract abdomen to your greatest range");
         circleObject.setVisibility(view.VISIBLE);
+        calibrateButton.setEnabled(false);
     }
 
     public boolean BTinit()
@@ -227,6 +232,7 @@ public class BluetoothActivity extends Activity {
         BluetoothAdapter bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
             Toast.makeText(getApplicationContext(),"Device doesn't support Bluetooth",Toast.LENGTH_SHORT).show();
+            return false;
         }
         if(!bluetoothAdapter.isEnabled())
         {
@@ -308,7 +314,8 @@ public class BluetoothActivity extends Activity {
             {
                 setUiEnabled(true);
                 deviceConnected=true;
-
+                calibrateButton.setEnabled(true);
+                startButton.setEnabled(false);
                 //add series to graph
                 beginListenForData();
                 textView.setText("Connection opened!");
